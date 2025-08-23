@@ -16,9 +16,10 @@ export default function AdminPage() {
     { make: 'VW', model: 'Golf', engine: '2.0 TSI', stockBhp: '245', stockNm: '370', stage1: '300/420', stage2: '340/480', stage3: '380/520' },
     { make: 'BMW', model: 'M140i', engine: '3.0 B58', stockBhp: '340', stockNm: '500', stage1: '410/600', stage2: '450/650', stage3: '500/700' },
   ]);
-  const handleAddVehicle = (v) => setVehicles(vehicles => [...vehicles, v]);
-  const handleUpdateVehicle = (idx, v) => setVehicles(vehicles => vehicles.map((veh, i) => i === idx ? v : veh));
-  const handleDeleteVehicle = (idx) => setVehicles(vehicles => vehicles.filter((_, i) => i !== idx));
+  type Vehicle = { make: string; model: string; engine: string; stockBhp: string; stockNm: string; stage1: string; stage2: string; stage3: string };
+  const handleAddVehicle = (v: Vehicle) => setVehicles((vehicles: Vehicle[]) => [...vehicles, v]);
+  const handleUpdateVehicle = (idx: number, v: Vehicle) => setVehicles((vehicles: Vehicle[]) => vehicles.map((veh, i) => i === idx ? v : veh));
+  const handleDeleteVehicle = (idx: number) => setVehicles((vehicles: Vehicle[]) => vehicles.filter((_, i) => i !== idx));
   const sidebarLinks = [
     { label: "Dashboard", icon: "🛡️" },
     { label: "Users", icon: "👥" },
@@ -45,368 +46,7 @@ export default function AdminPage() {
   const [bookingsLoading, setBookingsLoading] = useState(true);
   // Settings
   const [settings, setSettings] = useState<Settings | null>(null);
-  const [settingsLoading, setSettingsLoading] = useState(true);
 
-  useEffect(() => {
-    async function fetchUsers() {
-      setUsersLoading(true);
-      try {
-        const res = await apiFetch("/api/admin/users");
-        if (res.ok) setUsers(await res.json());
-      } catch {}
-      setUsersLoading(false);
-    }
-    fetchUsers();
-  }, []);
-
-  useEffect(() => {
-    let interval: NodeJS.Timeout;
-    async function fetchFiles() {
-      setFileLoading(true);
-      try {
-        const res = await apiFetch("/api/admin/uploads");
-        if (res.ok) setFileRows(await res.json());
-      } catch {}
-      setFileLoading(false);
-    }
-    fetchFiles();
-    interval = setInterval(fetchFiles, 5000);
-    return () => clearInterval(interval);
-  }, []);
-
-  useEffect(() => {
-    async function fetchBookings() {
-      setBookingsLoading(true);
-      try {
-        const res = await apiFetch("/api/admin/bookings");
-        if (res.ok) setBookings(await res.json());
-      } catch {}
-      setBookingsLoading(false);
-    }
-    fetchBookings();
-  }, []);
-
-  useEffect(() => {
-    async function fetchSettings() {
-      setSettingsLoading(true);
-      try {
-        const res = await apiFetch("/api/admin/settings");
-        if (res.ok) setSettings(await res.json());
-      } catch {}
-      setSettingsLoading(false);
-    }
-    fetchSettings();
-  }, []);
-
-
-  // --- Section: Users ---
-  function UsersSection() {
-    const [newUser, setNewUser] = useState({ email: '', role: 'client', credit: 0 });
-    const [adding, setAdding] = useState(false);
-    const [error, setError] = useState('');
-    async function addUser(e: React.FormEvent) {
-      e.preventDefault();
-      setAdding(true);
-      setError('');
-      try {
-        const res = await apiFetch('/api/admin/users', {
-          method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify(newUser),
-        });
-        if (!res.ok) throw new Error('Failed to add user');
-        setNewUser({ email: '', role: 'client', credit: 0 });
-        // Refresh users
-        const res2 = await apiFetch('/api/admin/users');
-        if (res2.ok) setUsers(await res2.json());
-      } catch (err) {
-        setError('Could not add user');
-      }
-      setAdding(false);
-    }
-    async function updateCredit(email: string, credit: number) {
-      await apiFetch('/api/admin/users', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email, credit }),
-      });
-      const res = await apiFetch('/api/admin/users');
-      if (res.ok) setUsers(await res.json());
-    }
-    async function deleteUser(email: string) {
-      await apiFetch('/api/admin/users', {
-        method: 'DELETE',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ email }),
-      });
-      const res = await apiFetch('/api/admin/users');
-      if (res.ok) setUsers(await res.json());
-    }
-    return (
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Users</h2>
-        {usersLoading ? <div>Loading users...</div> : (
-          <table className="min-w-full text-sm bg-white rounded-xl shadow border border-yellow-200 mb-4">
-            <thead className="bg-yellow-100">
-              <tr>
-                <th className="py-2 px-3">Email</th>
-                <th className="py-2 px-3">Role</th>
-                <th className="py-2 px-3">Credit</th>
-                <th className="py-2 px-3">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {users.map((u) => (
-                <tr key={u.email} className="border-b last:border-b-0">
-                  <td className="py-2 px-3">{u.email}</td>
-                  <td className="py-2 px-3">{u.role}</td>
-                  <td className="py-2 px-3">
-                    <input
-                      type="number"
-                      value={u.credit ?? 0}
-                      min={0}
-                      className="border rounded px-2 py-1 w-20"
-                      onChange={e => updateCredit(u.email, Number(e.target.value))}
-                    />
-                  </td>
-                  <td className="py-2 px-3">
-                    <button className="text-xs text-red-600 hover:underline" onClick={() => deleteUser(u.email)}>Delete</button>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-        <form className="flex flex-col md:flex-row gap-2 mt-2" onSubmit={addUser}>
-          <input type="email" placeholder="Email" value={newUser.email} onChange={e => setNewUser(u => ({ ...u, email: e.target.value }))} className="px-2 py-1 rounded border border-yellow-300 flex-1" required />
-          <select value={newUser.role} onChange={e => setNewUser(u => ({ ...u, role: e.target.value }))} className="px-2 py-1 rounded border border-yellow-300 flex-1">
-            <option value="client">Client</option>
-            <option value="admin">Admin</option>
-          </select>
-          <input type="number" placeholder="Credit" value={newUser.credit} min={0} onChange={e => setNewUser(u => ({ ...u, credit: Number(e.target.value) }))} className="px-2 py-1 rounded border border-yellow-300 flex-1" />
-          <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold" disabled={adding}>Add User</button>
-        </form>
-        {error && <div className="text-red-600 mt-2">{error}</div>}
-      </section>
-    );
-  }
-
-
-    // --- Section: Files ---
-    function FilesSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Files</h2>
-          {fileLoading ? <div>Loading files...</div> : (
-            <table className="min-w-full text-sm bg-white rounded-xl shadow border border-yellow-200">
-              <thead className="bg-yellow-100">
-                <tr>
-                  <th className="py-2 px-3">Filename</th>
-                  <th className="py-2 px-3">Customer</th>
-                  <th className="py-2 px-3">Status</th>
-                </tr>
-              </thead>
-              <tbody>
-                {fileRows.map((row) => (
-                  <tr key={`${row.filename || "unknown"}${row.customer}`} className="border-b last:border-b-0">
-                    <td className="py-2 px-3">{row.filename || row.vehicle || "-"}</td>
-                    <td className="py-2 px-3">{row.customer || "-"}</td>
-                    <td className={`py-2 px-3 font-bold ${row.reviewed ? "text-green-700" : "text-yellow-700"}`}>{row.reviewed ? "Reviewed" : "Pending"}</td>
-                  </tr>
-                ))}
-              </tbody>
-            </table>
-          )}
-        </section>
-      );
-    }
-
-    // --- Section: Bookings ---
-    function BookingsSection() {
-      const [newBooking, setNewBooking] = useState({ customer: "", service: "", date: "" });
-      async function addBooking(e: React.FormEvent) {
-        e.preventDefault();
-        await apiFetch("/api/admin/bookings", {
-          method: "POST",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify(newBooking),
-        });
-        setNewBooking({ customer: "", service: "", date: "" });
-        // Refresh bookings
-        const res = await apiFetch("/api/admin/bookings");
-        if (res.ok) setBookings(await res.json());
-      }
-      async function deleteBooking(id: number) {
-        await apiFetch("/api/admin/bookings", {
-          method: "DELETE",
-          headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ id }),
-        });
-        // Refresh bookings
-        const res = await apiFetch("/api/admin/bookings");
-        if (res.ok) setBookings(await res.json());
-      }
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Bookings</h2>
-          {bookingsLoading ? <div>Loading bookings...</div> : (
-            <>
-              <table className="min-w-full text-sm bg-white rounded-xl shadow border border-yellow-200 mb-4">
-                <thead className="bg-yellow-100">
-                  <tr>
-                    <th className="py-2 px-3">ID</th>
-                    <th className="py-2 px-3">Customer</th>
-                    <th className="py-2 px-3">Service</th>
-                    <th className="py-2 px-3">Date</th>
-                    <th className="py-2 px-3">Status</th>
-                    <th className="py-2 px-3">Actions</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {bookings.map((b) => (
-                    <tr key={b.id} className="border-b last:border-b-0">
-                      <td className="py-2 px-3">{b.id}</td>
-                      <td className="py-2 px-3">{b.customer}</td>
-                      <td className="py-2 px-3">{b.service}</td>
-                      <td className="py-2 px-3">{b.date}</td>
-                      <td className="py-2 px-3">{b.status}</td>
-                      <td className="py-2 px-3">
-                        <button onClick={() => deleteBooking(b.id)} className="text-xs text-red-600 hover:underline">Delete</button>
-                      </td>
-                    </tr>
-                  ))}
-                </tbody>
-              </table>
-              <form className="flex flex-col md:flex-row gap-2 mt-2" onSubmit={addBooking}>
-                <input type="text" placeholder="Customer Email" value={newBooking.customer} onChange={e => setNewBooking(b => ({ ...b, customer: e.target.value }))} className="px-2 py-1 rounded border border-yellow-300 flex-1" required />
-                <input type="text" placeholder="Service" value={newBooking.service} onChange={e => setNewBooking(b => ({ ...b, service: e.target.value }))} className="px-2 py-1 rounded border border-yellow-300 flex-1" required />
-                <input type="date" placeholder="Date" value={newBooking.date} onChange={e => setNewBooking(b => ({ ...b, date: e.target.value }))} className="px-2 py-1 rounded border border-yellow-300 flex-1" required />
-                <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold">Add Booking</button>
-              </form>
-            </>
-          )}
-        </section>
-      );
-    }
-
-    // --- Section: Settings ---
-    function SettingsSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Settings</h2>
-          {settingsLoading ? <div>Loading settings...</div> : settings && (
-            <div className="bg-white rounded-xl shadow border border-yellow-200 p-6 max-w-xl">
-              <div className="mb-2"><b>Business Name:</b> {settings.businessName}</div>
-              <div className="mb-2"><b>Email:</b> {settings.businessEmail}</div>
-              <div className="mb-2"><b>Phone:</b> {settings.businessPhone}</div>
-              <div className="mb-2"><b>Address:</b> {settings.businessAddress}</div>
-              <div className="mb-2"><b>Business Hours:</b> {settings.businessHours}</div>
-              <div className="mb-2"><b>Maintenance Mode:</b> {settings.maintenanceMode ? "ON" : "OFF"}</div>
-              <div className="mb-2"><b>Homepage Announcement:</b> {settings.homepageAnnouncement}</div>
-            </div>
-          )}
-        </section>
-      );
-    }
-
-    // --- Section: Upload ---
-    function UploadSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Upload File</h2>
-          <div className="text-gray-700">(File upload form coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: Invoices ---
-    function InvoicesSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Invoices</h2>
-          <div className="text-gray-700">(Invoices management coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: Marketing Tools ---
-    function MarketingToolsSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Marketing Tools</h2>
-          <div className="text-gray-700">(Marketing tools coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: Knowledge Base ---
-    function KnowledgeBaseSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Knowledge Base</h2>
-          <div className="text-gray-700">(Knowledge base coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: DTC Search ---
-    function DTCSearchSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">DTC Search</h2>
-          <div className="text-gray-700">(DTC code search coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: File Service ---
-    function FileServiceSection() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">File Service</h2>
-          <div className="text-gray-700">(File service status and queue coming soon)</div>
-        </section>
-      );
-    }
-
-    // --- Section: Dashboard Home ---
-    function DashboardHome() {
-      return (
-        <section className="p-10">
-          <h2 className="text-3xl font-bold text-yellow-700 mb-6">Dashboard</h2>
-          <div className="text-gray-700">(Dashboard summary coming soon)</div>
-        </section>
-      );
-    }
-
-  // --- Section: Files ---
-  function FilesSection() {
-    return (
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Files</h2>
-        {fileLoading ? <div>Loading files...</div> : (
-          <table className="min-w-full text-sm bg-white rounded-xl shadow border border-yellow-200">
-            <thead className="bg-yellow-100">
-              <tr>
-                <th className="py-2 px-3">Filename</th>
-                <th className="py-2 px-3">Customer</th>
-                <th className="py-2 px-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {fileRows.map((row) => (
-                <tr key={`${row.filename || "unknown"}${row.customer}`} className="border-b last:border-b-0">
-                  <td className="py-2 px-3">{row.filename || row.vehicle || "-"}</td>
-                  <td className="py-2 px-3">{row.customer || "-"}</td>
-                  <td className={`py-2 px-3 font-bold ${row.reviewed ? "text-green-700" : "text-yellow-700"}`}>{row.reviewed ? "Reviewed" : "Pending"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        )}
-      </section>
-    );
-  }
 
   // --- Section: Bookings ---
   function BookingsSection() {
@@ -507,7 +147,23 @@ export default function AdminPage() {
   }
 
   // --- Section: Vehicle Data ---
-  function VehicleDataSection({ vehicles, onAdd, onUpdate, onDelete }) {
+  interface Vehicle {
+    make: string;
+    model: string;
+    engine: string;
+    stockBhp: string;
+    stockNm: string;
+    stage1: string;
+    stage2: string;
+    stage3: string;
+  }
+  interface VehicleDataSectionProps {
+    vehicles: Vehicle[];
+    onAdd: (v: Vehicle) => void;
+    onUpdate: (idx: number, v: Vehicle) => void;
+    onDelete: (idx: number) => void;
+  }
+  function VehicleDataSection({ vehicles, onAdd, onUpdate, onDelete }: VehicleDataSectionProps) {
     const [editing, setEditing] = useState<number | null>(null);
     const [newVehicle, setNewVehicle] = useState({
       make: '', model: '', engine: '', stockBhp: '', stockNm: '', stage1: '', stage2: '', stage3: ''
@@ -532,7 +188,7 @@ export default function AdminPage() {
             </tr>
           </thead>
           <tbody>
-            {vehicles.map((v, idx) => (
+            {vehicles.map((v: Vehicle, idx: number) => (
               <tr key={idx} className="border-b last:border-b-0">
                 {editing === idx ? (
                   <>
@@ -546,7 +202,7 @@ export default function AdminPage() {
                     <td><input value={editVehicle.stage3} onChange={e => setEditVehicle(ev => ({ ...ev, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
                     <td>
                       <button className="bg-yellow-400 text-white rounded px-2 py-1 mr-2" onClick={() => { onUpdate(idx, editVehicle); setEditing(null); }}>Save</button>
-                      <button className="bg-gray-300 rounded px-2 py-1" onClick={() => setEditing(null)}>Cancel</button>
+                      <button className="bg-gray-300 rounded px-2 py-1" type="button" onClick={() => setEditing(null)}>Cancel</button>
                     </td>
                   </>
                 ) : (
@@ -561,7 +217,7 @@ export default function AdminPage() {
                     <td>{v.stage3}</td>
                     <td>
                       <button className="bg-yellow-400 text-white rounded px-2 py-1 mr-2" onClick={() => { setEditing(idx); setEditVehicle(v); }}>Edit</button>
-                      <button className="bg-red-400 text-white rounded px-2 py-1" onClick={() => onDelete(idx)}>Delete</button>
+                      <button className="bg-red-400 text-white rounded px-2 py-1" type="button" onClick={() => onDelete(idx)}>Delete</button>
                     </td>
                   </>
                 )}

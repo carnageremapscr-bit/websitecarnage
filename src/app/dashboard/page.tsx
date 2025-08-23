@@ -41,7 +41,7 @@ export default function Dashboard() {
     fetchFiles();
     return () => clearInterval(interval);
   }, []);
-  const filteredFiles = fileRows.filter(row =>
+  const filteredFiles = fileRows.filter((row: FileRow) =>
     (row.vehicle?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
     (row.reg?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
     (row.status?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
@@ -85,101 +85,7 @@ export default function Dashboard() {
   }
 
   // --- Section: Files ---
-  function FilesSection() {
-    const [files, setFiles] = useState([]);
-    const [filesLoading, setFilesLoading] = useState(true);
-    const [fileSearch, setFileSearch] = useState("");
-    const [filePage, setFilePage] = useState(1);
-    const filesPerPage = 10;
-
-    useEffect(() => {
-      async function fetchFiles() {
-        setFilesLoading(true);
-        try {
-          const res = await fetch("/api/admin/uploads");
-          if (res.ok) setFiles(await res.json());
-        } catch {}
-        setFilesLoading(false);
-      }
-      fetchFiles();
-    }, []);
-
-    const filteredFiles = files.filter(row =>
-      (row.vehicle?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
-      (row.reg?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
-      (row.status?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
-      (row.filename?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "") ||
-      (row.customer?.toLowerCase?.().includes(fileSearch.toLowerCase()) || "")
-    );
-    const totalPages = Math.ceil(filteredFiles.length / filesPerPage);
-    const pagedFiles = filteredFiles.slice((filePage - 1) * filesPerPage, filePage * filesPerPage);
-
-    return (
-      <section className="p-10">
-        <h2 className="text-3xl font-bold text-yellow-700 mb-6">File Processing</h2>
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
-          <div>
-            Show
-            <span className="mx-2 font-bold">10</span>
-            entries
-          </div>
-          <div>
-            <input
-              type="text"
-              className="border rounded px-3 py-1"
-              placeholder="Search..."
-              value={fileSearch}
-              onChange={e => { setFileSearch(e.target.value); setFilePage(1); }}
-            />
-          </div>
-        </div>
-        <div className="overflow-x-auto rounded-lg shadow border border-yellow-200">
-          <table className="min-w-full text-sm">
-            <thead className="bg-yellow-100">
-              <tr>
-                <th className="py-2 px-3">#</th>
-                <th className="py-2 px-3">Filename</th>
-                <th className="py-2 px-3">Customer</th>
-                <th className="py-2 px-3">Status</th>
-              </tr>
-            </thead>
-            <tbody>
-              {filesLoading ? (
-                <tr><td colSpan={4} className="text-center py-4 text-gray-500">Loading...</td></tr>
-              ) : pagedFiles.length === 0 ? (
-                <tr><td colSpan={4} className="text-center py-4 text-gray-500">No files found.</td></tr>
-              ) : pagedFiles.map((row, i) => (
-                <tr key={row.filename + row.customer} className="border-b last:border-b-0">
-                  <td className="py-2 px-3">{i + 1 + (filePage - 1) * filesPerPage}</td>
-                  <td className="py-2 px-3">{row.filename || row.vehicle || "-"}</td>
-                  <td className="py-2 px-3">{row.customer || "-"}</td>
-                  <td className={`py-2 px-3 font-bold ${row.reviewed ? "text-green-700" : "text-yellow-700"}`}>{row.reviewed ? "Reviewed" : "Pending"}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-        {/* Pagination */}
-        <div className="flex items-center justify-between mt-4">
-          <div className="text-sm text-gray-600">
-            Showing page {filePage} of {totalPages || 1}
-          </div>
-          <div className="flex gap-2">
-            <button
-              className="px-3 py-1 rounded bg-yellow-400 text-black font-bold disabled:opacity-50"
-              disabled={filePage === 1}
-              onClick={() => setFilePage(p => Math.max(1, p - 1))}
-            >Previous</button>
-            <button
-              className="px-3 py-1 rounded bg-yellow-400 text-black font-bold disabled:opacity-50"
-              disabled={filePage === totalPages || totalPages === 0}
-              onClick={() => setFilePage(p => Math.min(totalPages, p + 1))}
-            >Next</button>
-          </div>
-        </div>
-      </section>
-    );
-  }
+  // FilesSection already handled by fileRows above, so no duplicate needed
 
   // --- Section: Upload ---
   function UploadSection() {
@@ -214,7 +120,9 @@ export default function Dashboard() {
       <section className="p-10">
         <h2 className="text-3xl font-bold text-yellow-700 mb-6">Upload File</h2>
         <form className="flex flex-col gap-4 max-w-md" onSubmit={handleUpload}>
+          <label htmlFor="upload-email" className="font-bold">Your Email</label>
           <input
+            id="upload-email"
             type="email"
             placeholder="Your Email"
             value={customer}
@@ -222,8 +130,11 @@ export default function Dashboard() {
             className="px-2 py-1 rounded border border-yellow-300"
             required
           />
+          <label htmlFor="upload-file" className="font-bold">File</label>
           <input
+            id="upload-file"
             type="file"
+            title="Select file to upload"
             onChange={e => setFile(e.target.files && e.target.files[0] ? e.target.files[0] : null)}
             className="px-2 py-1 rounded border border-yellow-300"
             required
@@ -411,7 +322,7 @@ export default function Dashboard() {
         <h2 className="text-3xl font-bold text-yellow-700 mb-6">File Service</h2>
         <div className="mb-4">
           <span className="font-bold">Status:</span>
-          <select className="ml-2 border rounded px-2 py-1" value={status} onChange={e => setStatus(e.target.value)}>
+          <select className="ml-2 border rounded px-2 py-1" value={status} onChange={e => setStatus(e.target.value)} title="File status">
             <option value="Online">Online</option>
             <option value="Offline">Offline</option>
           </select>
@@ -566,31 +477,32 @@ export default function Dashboard() {
         <form className="space-y-4 max-w-xl" onSubmit={saveSettings}>
           <div>
             <label className="block font-bold mb-1">Business Name</label>
-            <input type="text" className="w-full border rounded px-2 py-1" value={form.businessName || ""} onChange={e => setForm((f: any) => ({ ...f, businessName: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Name" value={form.businessName || ""} onChange={e => setForm((f: any) => ({ ...f, businessName: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Email</label>
-            <input type="email" className="w-full border rounded px-2 py-1" value={form.businessEmail || ""} onChange={e => setForm((f: any) => ({ ...f, businessEmail: e.target.value }))} />
+            <input type="email" className="w-full border rounded px-2 py-1" placeholder="Business Email" value={form.businessEmail || ""} onChange={e => setForm((f: any) => ({ ...f, businessEmail: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Phone</label>
-            <input type="text" className="w-full border rounded px-2 py-1" value={form.businessPhone || ""} onChange={e => setForm((f: any) => ({ ...f, businessPhone: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Phone" value={form.businessPhone || ""} onChange={e => setForm((f: any) => ({ ...f, businessPhone: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Address</label>
-            <input type="text" className="w-full border rounded px-2 py-1" value={form.businessAddress || ""} onChange={e => setForm((f: any) => ({ ...f, businessAddress: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Address" value={form.businessAddress || ""} onChange={e => setForm((f: any) => ({ ...f, businessAddress: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Business Hours</label>
-            <input type="text" className="w-full border rounded px-2 py-1" value={form.businessHours || ""} onChange={e => setForm((f: any) => ({ ...f, businessHours: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Hours" value={form.businessHours || ""} onChange={e => setForm((f: any) => ({ ...f, businessHours: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Homepage Announcement</label>
-            <textarea className="w-full border rounded px-2 py-1" value={form.homepageAnnouncement || ""} onChange={e => setForm((f: any) => ({ ...f, homepageAnnouncement: e.target.value }))} />
+            <textarea className="w-full border rounded px-2 py-1" placeholder="Homepage Announcement" value={form.homepageAnnouncement || ""} onChange={e => setForm((f: any) => ({ ...f, homepageAnnouncement: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Maintenance Mode</label>
-            <select className="w-full border rounded px-2 py-1" value={form.maintenanceMode ? "true" : "false"} onChange={e => setForm((f: any) => ({ ...f, maintenanceMode: e.target.value === "true" }))}>
+            <label htmlFor="maintenance-mode" className="font-bold">Maintenance Mode</label>
+            <select id="maintenance-mode" className="w-full border rounded px-2 py-1" value={form.maintenanceMode ? "true" : "false"} onChange={e => setForm((f: any) => ({ ...f, maintenanceMode: e.target.value === "true" }))}>
               <option value="false">OFF</option>
               <option value="true">ON</option>
             </select>
@@ -655,7 +567,71 @@ export default function Dashboard() {
       {/* Main Content */}
       <main className="flex-1 bg-gray-100 min-h-screen p-0">
         {active === "Dashboard" && <DashboardHome />}
-        {active === "Files" && <FilesSection />}
+        {active === "Files" && (
+          <section className="p-10">
+            <h2 className="text-3xl font-bold text-yellow-700 mb-6">File Processing</h2>
+            <div className="flex flex-col md:flex-row md:items-center md:justify-between mb-4 gap-2">
+              <div>
+                Show
+                <span className="mx-2 font-bold">10</span>
+                entries
+              </div>
+              <div>
+                <input
+                  type="text"
+                  className="border rounded px-3 py-1"
+                  placeholder="Search..."
+                  value={fileSearch}
+                  onChange={e => { setFileSearch(e.target.value); setFilePage(1); }}
+                />
+              </div>
+            </div>
+            <div className="overflow-x-auto rounded-lg shadow border border-yellow-200">
+              <table className="min-w-full text-sm">
+                <thead className="bg-yellow-100">
+                  <tr>
+                    <th className="py-2 px-3">#</th>
+                    <th className="py-2 px-3">Filename</th>
+                    <th className="py-2 px-3">Customer</th>
+                    <th className="py-2 px-3">Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {fileLoading ? (
+                    <tr><td colSpan={4} className="text-center py-4 text-gray-500">Loading...</td></tr>
+                  ) : pagedFiles.length === 0 ? (
+                    <tr><td colSpan={4} className="text-center py-4 text-gray-500">No files found.</td></tr>
+                  ) : pagedFiles.map((row, i) => (
+                    <tr key={row.filename + row.customer} className="border-b last:border-b-0">
+                      <td className="py-2 px-3">{i + 1 + (filePage - 1) * filesPerPage}</td>
+                      <td className="py-2 px-3">{row.filename || row.vehicle || "-"}</td>
+                      <td className="py-2 px-3">{row.customer || "-"}</td>
+                      <td className={`py-2 px-3 font-bold ${row.reviewed ? "text-green-700" : "text-yellow-700"}`}>{row.reviewed ? "Reviewed" : "Pending"}</td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {/* Pagination */}
+            <div className="flex items-center justify-between mt-4">
+              <div className="text-sm text-gray-600">
+                Showing page {filePage} of {totalPages || 1}
+              </div>
+              <div className="flex gap-2">
+                <button
+                  className="px-3 py-1 rounded bg-yellow-400 text-black font-bold disabled:opacity-50"
+                  disabled={filePage === 1}
+                  onClick={() => setFilePage(p => Math.max(1, p - 1))}
+                >Previous</button>
+                <button
+                  className="px-3 py-1 rounded bg-yellow-400 text-black font-bold disabled:opacity-50"
+                  disabled={filePage === totalPages || totalPages === 0}
+                  onClick={() => setFilePage(p => Math.min(totalPages, p + 1))}
+                >Next</button>
+              </div>
+            </div>
+          </section>
+        )}
         {active === "Upload" && <UploadSection />}
         {active === "Vehicle Data" && <VehicleDataSection />}
         {active === "Invoices" && <InvoicesSection />}
