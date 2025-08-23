@@ -513,7 +513,7 @@ export default function Dashboard() {
           <div>
             <label className="block font-bold mb-1">Maintenance Mode</label>
             <label htmlFor="maintenance-mode" className="font-bold">Maintenance Mode</label>
-            <select id="maintenance-mode" className="w-full border rounded px-2 py-1" value={form.maintenanceMode ? "true" : "false"} onChange={e => setForm((f: any) => ({ ...f, maintenanceMode: e.target.value === "true" }))}>
+            <select id="maintenance-mode" className="w-full border rounded px-2 py-1" value={form.maintenanceMode ? "true" : "false"} onChange={e => setForm((f) => ({ ...f, maintenanceMode: e.target.value === "true" }))}>
               <option value="false">OFF</option>
               <option value="true">ON</option>
             </select>
