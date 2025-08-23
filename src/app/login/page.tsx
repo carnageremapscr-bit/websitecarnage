@@ -1,9 +1,4 @@
 "use client";
-
-export const metadata = {
-  title: "Login | Carnage Remaps",
-  description: "Login to your Carnage Remaps account.",
-};
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 

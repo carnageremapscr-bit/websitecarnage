@@ -3,10 +3,7 @@
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
 
-export const metadata = {
-  title: "Admin Dashboard | Carnage Remaps",
-  description: "Admin dashboard for managing users, bookings, and settings.",
-};
+
 
 type User = {
   email: string;

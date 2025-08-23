@@ -1,9 +1,4 @@
 "use client";
-
-export const metadata = {
-  title: "Customer Dashboard | Carnage Remaps",
-  description: "View your remap history, manage bookings, and contact support.",
-};
 import { useEffect, useState } from "react";
 
 type Booking = {
