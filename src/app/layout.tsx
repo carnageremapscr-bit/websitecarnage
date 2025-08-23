@@ -1,8 +1,7 @@
 
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
-import Link from "next/link";
-import dynamic from "next/dynamic";
+import NavBar from "../components/NavBar";
 import "./globals.css";
 
 const geistSans = Geist({
@@ -21,67 +20,13 @@ export const metadata: Metadata = {
 };
 
 
-const LogoutButton = dynamic(() => import("../components/LogoutButton"), { ssr: false });
+
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
-        <nav className="w-full bg-black/90 text-yellow-400 py-4 px-8 border-b-2 border-yellow-400 shadow-lg sticky top-0 z-20">
-          <div className="max-w-7xl mx-auto flex items-center justify-between">
-            <div className="text-2xl font-extrabold tracking-widest text-yellow-400 drop-shadow-lg">
-              <Link href="/">Carnage Remaps</Link>
-            </div>
-            {/* Hamburger menu for mobile */}
-            <input id="menu-toggle" type="checkbox" className="hidden peer" title="Toggle menu" />
-            <label htmlFor="menu-toggle" className="md:hidden flex flex-col justify-center items-center cursor-pointer w-10 h-10">
-              <span className="block w-8 h-1 bg-yellow-400 mb-1 rounded transition-all duration-300"></span>
-              <span className="block w-8 h-1 bg-yellow-400 mb-1 rounded transition-all duration-300"></span>
-              <span className="block w-8 h-1 bg-yellow-400 rounded transition-all duration-300"></span>
-            </label>
-            {/* Desktop nav with dropdown */}
-            <div className="hidden md:flex gap-8 text-lg font-bold items-center">
-              <Link href="/" className="hover:text-yellow-300 transition">Home</Link>
-              <Link href="/services" className="hover:text-yellow-300 transition">Services</Link>
-              <Link href="/about" className="hover:text-yellow-300 transition">About</Link>
-              <Link href="/contact" className="hover:text-yellow-300 transition">Contact</Link>
-              <div className="relative group">
-                <button className="hover:text-yellow-300 transition flex items-center gap-1">More <span>▼</span></button>
-                <div className="absolute right-0 mt-2 w-48 bg-black/95 border border-yellow-400 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-40">
-                  <Link href="/faq" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">FAQ</Link>
-                  <Link href="/testimonials" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Testimonials</Link>
-                  <Link href="/gallery" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Gallery</Link>
-                  <Link href="/blog" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Blog</Link>
-                  <Link href="/terms" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Terms & Privacy</Link>
-                  <Link href="/admin-dashboard" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Admin Dashboard</Link>
-                  <Link href="/login" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Login</Link>
-                  <Link href="/contact" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition rounded-b">Contact</Link>
-                </div>
-              </div>
-              <LogoutButton />
-            </div>
-            {/* Mobile menu with dropdown */}
-            <div className="absolute top-16 left-0 w-full bg-black/95 border-b-2 border-yellow-400 shadow-lg flex-col items-center gap-6 py-6 text-lg font-bold md:hidden hidden peer-checked:flex z-30">
-              <Link href="/" className="block py-2 hover:text-yellow-300 transition">Home</Link>
-              <Link href="/services" className="block py-2 hover:text-yellow-300 transition">Services</Link>
-              <Link href="/about" className="block py-2 hover:text-yellow-300 transition">About</Link>
-              <Link href="/contact" className="block py-2 hover:text-yellow-300 transition">Contact</Link>
-              <div className="w-full flex flex-col items-center">
-                <button className="w-full text-left px-4 py-2 hover:text-yellow-300 transition">More ▼</button>
-                <div className="w-full flex flex-col items-center bg-black/95 border-t border-yellow-400">
-                  <Link href="/faq" className="block py-2 hover:text-yellow-300 transition">FAQ</Link>
-                  <Link href="/testimonials" className="block py-2 hover:text-yellow-300 transition">Testimonials</Link>
-                  <Link href="/gallery" className="block py-2 hover:text-yellow-300 transition">Gallery</Link>
-                  <Link href="/blog" className="block py-2 hover:text-yellow-300 transition">Blog</Link>
-                  <Link href="/terms" className="block py-2 hover:text-yellow-300 transition">Terms & Privacy</Link>
-                  <Link href="/admin-dashboard" className="block py-2 hover:text-yellow-300 transition">Admin Dashboard</Link>
-                  <Link href="/login" className="block py-2 hover:text-yellow-300 transition">Login</Link>
-                  <Link href="/contact" className="block py-2 hover:text-yellow-300 transition">Contact</Link>
-                </div>
-              </div>
-            </div>
-          </div>
-        </nav>
+  <NavBar />
         {children}
       </body>
     </html>
