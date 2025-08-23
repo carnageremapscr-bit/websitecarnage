@@ -14,7 +14,7 @@ export default function Login() {
       const user = localStorage.getItem("carnage_user");
       if (user) {
         const parsed = JSON.parse(user);
-        if (parsed.role === "admin") router.replace("/admin-dashboard");
+  if (parsed.role === "admin") router.replace("/admin");
         else router.replace("/dashboard");
       }
     }
@@ -35,7 +35,7 @@ export default function Login() {
     const data = await res.json();
     if (res.ok) {
       localStorage.setItem("carnage_user", JSON.stringify({ email: data.email, role: data.role }));
-      if (data.role === "admin") router.replace("/admin-dashboard");
+  if (data.role === "admin") router.replace("/admin");
       else router.replace("/dashboard");
     } else {
       setError(data.error || "Login failed.");

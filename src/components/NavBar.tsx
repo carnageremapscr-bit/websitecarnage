@@ -12,7 +12,7 @@ export default function NavBar() {
       const user = localStorage.getItem("carnage_user");
       setIsLoggedIn(!!user);
       // If not logged in and on a protected page, redirect to login
-      const protectedRoutes = ["/dashboard", "/admin-dashboard"];
+  const protectedRoutes = ["/dashboard", "/admin"];
       if (!user && protectedRoutes.includes(window.location.pathname)) {
         router.replace("/login");
       }
@@ -39,10 +39,10 @@ export default function NavBar() {
             <div className="absolute right-0 mt-2 w-48 bg-black/95 border border-yellow-400 rounded shadow-lg opacity-0 group-hover:opacity-100 pointer-events-none group-hover:pointer-events-auto transition-opacity z-40">
               <Link href="/faq" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">FAQ</Link>
               <Link href="/testimonials" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Testimonials</Link>
-              <Link href="/gallery" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Gallery</Link>
+              {/* Gallery link removed */}
               <Link href="/blog" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Blog</Link>
               <Link href="/terms" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Terms & Privacy</Link>
-              <Link href="/admin-dashboard" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Admin Dashboard</Link>
+              {/* Admin Dashboard link removed: dashboard is now unified and role-based */}
               <Link href="/login" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Login</Link>
               <Link href="/signup" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Sign Up</Link>
               <Link href="/contact" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition rounded-b">Contact</Link>
