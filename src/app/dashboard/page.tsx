@@ -1,3 +1,14 @@
+// Settings type for dashboard
+type Settings = {
+  businessName?: string;
+  businessEmail?: string;
+  businessPhone?: string;
+  businessAddress?: string;
+  businessLogo?: string;
+  businessHours?: string;
+  maintenanceMode?: boolean;
+  homepageAnnouncement?: string;
+};
 
 "use client";
 import React, { useState, useEffect } from "react";
@@ -439,9 +450,9 @@ export default function Dashboard() {
 
   // --- Section: Settings ---
   function SettingsSection() {
-    const [settings, setSettings] = useState<any>(null);
+    const [settings, setSettings] = useState<Settings | null>(null);
     const [loading, setLoading] = useState(true);
-    const [form, setForm] = useState<any>({});
+    const [form, setForm] = useState<Settings>({});
 
     useEffect(() => {
       async function fetchSettings() {
@@ -477,27 +488,27 @@ export default function Dashboard() {
         <form className="space-y-4 max-w-xl" onSubmit={saveSettings}>
           <div>
             <label className="block font-bold mb-1">Business Name</label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Name" value={form.businessName || ""} onChange={e => setForm((f: any) => ({ ...f, businessName: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Name" value={form.businessName || ""} onChange={e => setForm((f) => ({ ...f, businessName: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Email</label>
-            <input type="email" className="w-full border rounded px-2 py-1" placeholder="Business Email" value={form.businessEmail || ""} onChange={e => setForm((f: any) => ({ ...f, businessEmail: e.target.value }))} />
+            <input type="email" className="w-full border rounded px-2 py-1" placeholder="Business Email" value={form.businessEmail || ""} onChange={e => setForm((f) => ({ ...f, businessEmail: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Phone</label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Phone" value={form.businessPhone || ""} onChange={e => setForm((f: any) => ({ ...f, businessPhone: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Phone" value={form.businessPhone || ""} onChange={e => setForm((f) => ({ ...f, businessPhone: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Address</label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Address" value={form.businessAddress || ""} onChange={e => setForm((f: any) => ({ ...f, businessAddress: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Address" value={form.businessAddress || ""} onChange={e => setForm((f) => ({ ...f, businessAddress: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Business Hours</label>
-            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Hours" value={form.businessHours || ""} onChange={e => setForm((f: any) => ({ ...f, businessHours: e.target.value }))} />
+            <input type="text" className="w-full border rounded px-2 py-1" placeholder="Business Hours" value={form.businessHours || ""} onChange={e => setForm((f) => ({ ...f, businessHours: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Homepage Announcement</label>
-            <textarea className="w-full border rounded px-2 py-1" placeholder="Homepage Announcement" value={form.homepageAnnouncement || ""} onChange={e => setForm((f: any) => ({ ...f, homepageAnnouncement: e.target.value }))} />
+            <textarea className="w-full border rounded px-2 py-1" placeholder="Homepage Announcement" value={form.homepageAnnouncement || ""} onChange={e => setForm((f) => ({ ...f, homepageAnnouncement: e.target.value }))} />
           </div>
           <div>
             <label className="block font-bold mb-1">Maintenance Mode</label>
