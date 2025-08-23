@@ -53,6 +53,7 @@ export default function RootLayout({
                   <Link href="/gallery" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Gallery</Link>
                   <Link href="/blog" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Blog</Link>
                   <Link href="/terms" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Terms & Privacy</Link>
+                  <Link href="/admin-dashboard" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Admin Dashboard</Link>
                   <Link href="/login" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Login</Link>
                   <Link href="/contact" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition rounded-b">Contact</Link>
                 </div>
@@ -72,6 +73,7 @@ export default function RootLayout({
                   <Link href="/gallery" className="block py-2 hover:text-yellow-300 transition">Gallery</Link>
                   <Link href="/blog" className="block py-2 hover:text-yellow-300 transition">Blog</Link>
                   <Link href="/terms" className="block py-2 hover:text-yellow-300 transition">Terms & Privacy</Link>
+                  <Link href="/admin-dashboard" className="block py-2 hover:text-yellow-300 transition">Admin Dashboard</Link>
                   <Link href="/login" className="block py-2 hover:text-yellow-300 transition">Login</Link>
                   <Link href="/contact" className="block py-2 hover:text-yellow-300 transition">Contact</Link>
                 </div>

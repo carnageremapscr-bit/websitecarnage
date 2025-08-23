@@ -27,9 +27,13 @@ interface SiteSettings {
 }
 
 export default function AdminDashboard() {
+  // Debug: confirm component renders
+  useEffect(() => {
+    console.log("AdminDashboard component mounted");
+  }, []);
   // Real API data for users and bookings
-  const [users, setUsers] = useState<User[]>([]);
-  const [bookings, setBookings] = useState<Booking[]>([]);
+  const [users, setUsers] = useState<User[] | null>([]);
+  const [bookings, setBookings] = useState<Booking[] | null>([]);
   const [loading, setLoading] = useState(true);
   const [userEmail, setUserEmail] = useState("");
   const [userRole, setUserRole] = useState("customer");
@@ -54,8 +58,16 @@ export default function AdminDashboard() {
       setLoading(true);
       const usersRes = await fetch("/api/admin/users");
       const bookingsRes = await fetch("/api/admin/bookings");
-      setUsers(await usersRes.json());
-      setBookings(await bookingsRes.json());
+      try {
+        setUsers(await usersRes.json());
+      } catch {
+        setUsers(null);
+      }
+      try {
+        setBookings(await bookingsRes.json());
+      } catch {
+        setBookings(null);
+      }
       setLoading(false);
     }
     fetchData();
@@ -81,7 +93,7 @@ export default function AdminDashboard() {
             setSiteSettings(siteSettings);
           }
         }
-      } catch (err) {
+      } catch {
         if (!didCancel) {
           setSiteSettings(siteSettings);
         }
@@ -92,6 +104,7 @@ export default function AdminDashboard() {
     }
     fetchSettings();
     return () => { didCancel = true; };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   async function addUser(e: React.FormEvent) {
@@ -170,13 +183,13 @@ export default function AdminDashboard() {
       setSettingsForm(data);
     }
   }
-
   // ...existing code...
+  return (
     <>
       <Head>
         <title>Admin Dashboard | Carnage Remaps</title>
       </Head>
-      <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-black via-gray-900 to-yellow-100">
+      <main className="min-h-screen flex flex-col items-center justify-center bg-white">
         <div className="bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-400 p-8 w-full max-w-2xl">
           <h1 className="text-3xl font-extrabold mb-6 text-black text-center">Admin Dashboard</h1>
           <p className="text-lg text-gray-700 mb-4 text-center">Manage users, view bookings, and oversee remap operations.</p>
@@ -184,56 +197,62 @@ export default function AdminDashboard() {
             {/* User Management */}
             <div className="bg-yellow-100 rounded-xl p-6 shadow text-center">
               <h2 className="font-bold text-yellow-700 mb-2">User Management</h2>
-              {loading ? <p>Loading...</p> : <>
-                <ul className="text-gray-700 text-left text-sm max-h-32 overflow-y-auto mb-2">
-                  {users.map((u, i) => (
-                    <li key={i} className="mb-1 flex justify-between items-center">
-                      <span>{u.email} <span className="text-xs text-gray-500">({u.role})</span></span>
-                      <button onClick={() => deleteUser(u.email)} className="ml-2 text-xs text-red-600 hover:underline">Delete</button>
-                    </li>
-                  ))}
-                </ul>
-                <form className="flex flex-col gap-2 mt-2" onSubmit={addUser}>
-                  <input type="email" placeholder="Email" value={userEmail} onChange={e => setUserEmail(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
-                  <label className="sr-only" htmlFor="userRoleSelect">Role</label>
-                  <select id="userRoleSelect" aria-label="User Role" value={userRole} onChange={e => setUserRole(e.target.value)} className="px-2 py-1 rounded border border-yellow-300">
-                    <option value="customer">Customer</option>
-                    <option value="admin">Admin</option>
-                  </select>
-                  <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold mt-1">Add User</button>
-                </form>
-              </>}
+              {loading ? <p>Loading...</p>
+                : users === null ? <p className="text-red-600">Failed to load users.</p>
+                : <>
+                  <ul className="text-gray-700 text-left text-sm max-h-32 overflow-y-auto mb-2">
+                    {users.map((u) => (
+                      <li key={u.email} className="mb-1 flex items-center">
+                        <span>{u.email} <span className="text-xs text-gray-500">({u.role})</span></span>
+                        <button type="button" onClick={() => deleteUser(u.email)} className="ml-2 text-xs text-red-600 hover:underline">Delete</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <form className="flex flex-col gap-2 mt-2" onSubmit={addUser}>
+                    <input type="email" placeholder="Email" value={userEmail} onChange={e => setUserEmail(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
+                    <label className="sr-only" htmlFor="userRoleSelect">Role</label>
+                    <select id="userRoleSelect" aria-label="User Role" value={userRole} onChange={e => setUserRole(e.target.value)} className="px-2 py-1 rounded border border-yellow-300">
+                      <option value="customer">Customer</option>
+                      <option value="admin">Admin</option>
+                    </select>
+                    <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold mt-1">Add User</button>
+                  </form>
+                </>
+              }
             </div>
             {/* Bookings Overview */}
             <div className="bg-yellow-100 rounded-xl p-6 shadow text-center">
               <h2 className="font-bold text-yellow-700 mb-2">Bookings Overview</h2>
-              {loading ? <p>Loading...</p> : <>
-                <ul className="text-gray-700 text-left text-sm max-h-32 overflow-y-auto mb-2">
-                  {bookings.map((b) => (
-                    <li key={b.id} className="mb-1 flex justify-between items-center">
-                      <span>{b.date}: {b.customer} - {b.service}</span>
-                      <button onClick={() => deleteBooking(b.id)} className="ml-2 text-xs text-red-600 hover:underline">Delete</button>
-                    </li>
-                  ))}
-                </ul>
-                <form className="flex flex-col gap-2 mt-2" onSubmit={addBooking}>
-                  <input type="text" placeholder="Customer Email" value={bookingCustomer} onChange={e => setBookingCustomer(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
-                  <input type="text" placeholder="Service" value={bookingService} onChange={e => setBookingService(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
-                  <input type="date" placeholder="Date" value={bookingDate} onChange={e => setBookingDate(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
-                  <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold mt-1">Add Booking</button>
-                </form>
-              </>}
+              {loading ? <p>Loading...</p>
+                : bookings === null ? <p className="text-red-600">Failed to load bookings.</p>
+                : <>
+                  <ul className="text-gray-700 text-left text-sm max-h-32 overflow-y-auto mb-2">
+                    {bookings.map((b) => (
+                      <li key={b.id} className="mb-1 flex items-center">
+                        <span>{b.date}: {b.customer} - {b.service}</span>
+                        <button type="button" onClick={() => deleteBooking(b.id)} className="ml-2 text-xs text-red-600 hover:underline">Delete</button>
+                      </li>
+                    ))}
+                  </ul>
+                  <form className="flex flex-col gap-2 mt-2" onSubmit={addBooking}>
+                    <input type="text" placeholder="Customer Email" value={bookingCustomer} onChange={e => setBookingCustomer(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
+                    <input type="text" placeholder="Service" value={bookingService} onChange={e => setBookingService(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
+                    <input type="date" placeholder="Date" value={bookingDate} onChange={e => setBookingDate(e.target.value)} className="px-2 py-1 rounded border border-yellow-300" required />
+                    <button type="submit" className="bg-yellow-400 text-white rounded px-3 py-1 font-bold mt-1">Add Booking</button>
+                  </form>
+                </>
+              }
             </div>
             {/* Remap Operations */}
             <div className="bg-yellow-100 rounded-xl p-6 shadow text-center">
               <h2 className="font-bold text-yellow-700 mb-2">Remap Operations</h2>
               <ul className="text-gray-700 text-left text-sm max-h-32 overflow-y-auto mb-2">
-                {bookings.map((b) => (
+                {(bookings ?? []).map((b) => (
                   <li key={b.id} className="mb-1">
                     {b.date}: {b.customer} - {b.service}
                   </li>
                 ))}
-                {bookings.length === 0 && <li className="text-gray-500">No remap jobs yet.</li>}
+                {(bookings?.length ?? 0) === 0 && <li className="text-gray-500">No remap jobs yet.</li>}
               </ul>
             </div>
             {/* Site Settings */}
@@ -280,5 +299,5 @@ export default function AdminDashboard() {
         </div>
       </main>
     </>
-// ...existing code...
+  );
 }
