@@ -20,17 +20,25 @@ export default function Login() {
     }
   }, [router]);
 
-  function handleLogin(e: React.FormEvent<HTMLFormElement>) {
+  async function handleLogin(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    // Demo admin credentials
-    if (email === "admin@carnage.com" && password === "admin123") {
-      localStorage.setItem("carnage_user", JSON.stringify({ email, role: "admin" }));
-      router.replace("/admin-dashboard");
-    } else if (email && password) {
-      localStorage.setItem("carnage_user", JSON.stringify({ email, role: "customer" }));
-      router.replace("/dashboard");
-    } else {
+    setError("");
+    if (!email || !password) {
       setError("Please enter your email and password.");
+      return;
+    }
+    const res = await fetch("/api/auth/login", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ email, password }),
+    });
+    const data = await res.json();
+    if (res.ok) {
+      localStorage.setItem("carnage_user", JSON.stringify({ email: data.email, role: data.role }));
+      if (data.role === "admin") router.replace("/admin-dashboard");
+      else router.replace("/dashboard");
+    } else {
+      setError(data.error || "Login failed.");
     }
   }
 

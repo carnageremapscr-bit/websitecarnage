@@ -18,9 +18,18 @@ export default function CustomerDashboard() {
   useEffect(() => {
     // Get user email from localStorage
     if (typeof window !== "undefined") {
-      const email = localStorage.getItem("carnage_user_email") || "";
-      setUserEmail(email);
-      fetchBookings(email);
+      const user = localStorage.getItem("carnage_user");
+      if (!user) {
+        window.location.href = "/login";
+        return;
+      }
+      try {
+        const parsed = JSON.parse(user);
+        setUserEmail(parsed.email);
+        fetchBookings(parsed.email);
+      } catch {
+        window.location.href = "/login";
+      }
     }
   }, []);
 

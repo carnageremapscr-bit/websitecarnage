@@ -11,11 +11,16 @@ export default function NavBar() {
     if (typeof window !== "undefined") {
       const user = localStorage.getItem("carnage_user");
       setIsLoggedIn(!!user);
+      // If not logged in and on a protected page, redirect to login
+      const protectedRoutes = ["/dashboard", "/admin-dashboard"];
+      if (!user && protectedRoutes.includes(window.location.pathname)) {
+        router.replace("/login");
+      }
     }
-  }, []);
+  }, [router]);
   function handleLogout() {
     localStorage.removeItem("carnage_user");
-    localStorage.removeItem("carnage_user_email");
+    setIsLoggedIn(false);
     router.replace("/login");
   }
   return (
@@ -39,12 +44,13 @@ export default function NavBar() {
               <Link href="/terms" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Terms & Privacy</Link>
               <Link href="/admin-dashboard" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Admin Dashboard</Link>
               <Link href="/login" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Login</Link>
+              <Link href="/signup" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition">Sign Up</Link>
               <Link href="/contact" className="block px-4 py-2 hover:bg-yellow-400 hover:text-black transition rounded-b">Contact</Link>
             </div>
           </div>
-          {isLoggedIn && (
+          {isLoggedIn ? (
             <button onClick={handleLogout} className="ml-4 px-4 py-2 bg-yellow-400 text-black rounded font-bold hover:bg-yellow-500 transition">Logout</button>
-          )}
+          ) : null}
         </div>
       </div>
     </nav>
