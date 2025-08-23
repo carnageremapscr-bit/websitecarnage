@@ -1,6 +1,18 @@
-"use client";
-import React, { useState, useEffect } from "react";
-import { apiFetch } from "@/utils/apiFetch";
+
+
+  "use client";
+  import React, { useState, useEffect } from "react";
+  import { apiFetch } from "@/utils/apiFetch";
+
+  // --- Section: Dashboard Home ---
+  function DashboardHome() {
+    return (
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Dashboard</h2>
+        <div className="text-gray-700">(Dashboard summary coming soon)</div>
+      </section>
+    );
+  }
 
 
 
@@ -288,7 +300,8 @@ export default function AdminPage() {
   return (
     <div className="min-h-screen flex bg-gradient-to-br from-black via-gray-900 to-yellow-100">
       {/* Sidebar */}
-      <aside className="w-64 bg-black text-yellow-400 flex flex-col py-8 px-6 min-h-screen shadow-xl border-r-2 border-yellow-400">
+      {/* Sidebar for desktop, dropdown for mobile */}
+      <aside className="hidden md:flex w-64 bg-black text-yellow-400 flex-col py-8 px-6 min-h-screen shadow-xl border-r-2 border-yellow-400">
         <div className="text-2xl font-extrabold mb-8 tracking-widest text-yellow-400 text-center">Carnage Admin</div>
         <nav className="flex flex-col gap-2 text-lg font-bold">
           {sidebarLinks.map(link => (
@@ -303,6 +316,21 @@ export default function AdminPage() {
         </nav>
         <div className="mt-auto pt-8 text-xs text-yellow-300 text-center opacity-70">&copy; {new Date().getFullYear()} Carnage Remaps</div>
       </aside>
+
+      {/* Dropdown for mobile */}
+      <div className="md:hidden w-full bg-black text-yellow-400 p-4 flex flex-col gap-2">
+        <label htmlFor="admin-nav" className="font-bold mb-1">Menu</label>
+        <select
+          id="admin-nav"
+          className="bg-yellow-400 text-black rounded px-3 py-2 font-bold"
+          value={active}
+          onChange={e => setActive(e.target.value)}
+        >
+          {sidebarLinks.map(link => (
+            <option key={link.label} value={link.label}>{link.icon} {link.label}</option>
+          ))}
+        </select>
+      </div>
 
       {/* Main Content */}
       <main className="flex-1 bg-gradient-to-br from-gray-100 via-yellow-50 to-yellow-200 min-h-screen p-0">
