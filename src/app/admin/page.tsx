@@ -28,7 +28,7 @@ export default function AdminPage() {
     { make: 'VW', model: 'Golf', engine: '2.0 TSI', stockBhp: '245', stockNm: '370', stage1: '300/420', stage2: '340/480', stage3: '380/520' },
     { make: 'BMW', model: 'M140i', engine: '3.0 B58', stockBhp: '340', stockNm: '500', stage1: '410/600', stage2: '450/650', stage3: '500/700' },
   ]);
-  type Vehicle = { make: string; model: string; engine: string; stockBhp: string; stockNm: string; stage1: string; stage2: string; stage3: string };
+  // Removed duplicate Vehicle type declaration
   const handleAddVehicle = (v: Vehicle) => setVehicles((vehicles: Vehicle[]) => [...vehicles, v]);
   const handleUpdateVehicle = (idx: number, v: Vehicle) => setVehicles((vehicles: Vehicle[]) => vehicles.map((veh, i) => i === idx ? v : veh));
   const handleDeleteVehicle = (idx: number) => setVehicles((vehicles: Vehicle[]) => vehicles.filter((_, i) => i !== idx));
@@ -58,6 +58,7 @@ export default function AdminPage() {
   const [bookingsLoading, setBookingsLoading] = useState(true);
   // Settings
   const [settings, setSettings] = useState<Settings | null>(null);
+  const [settingsLoading, setSettingsLoading] = useState(true);
 
 
   // --- Section: Bookings ---
@@ -204,10 +205,14 @@ export default function AdminPage() {
               <tr key={idx} className="border-b last:border-b-0">
                 {editing === idx ? (
                   <>
-                    <td><input value={editVehicle.make} onChange={e => setEditVehicle(ev => ({ ...ev, make: e.target.value }))} className="border rounded px-2 py-1 w-24" /></td>
-                    <td><input value={editVehicle.model} onChange={e => setEditVehicle(ev => ({ ...ev, model: e.target.value }))} className="border rounded px-2 py-1 w-24" /></td>
-                    <td><input value={editVehicle.engine} onChange={e => setEditVehicle(ev => ({ ...ev, engine: e.target.value }))} className="border rounded px-2 py-1 w-24" /></td>
-                    <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
+                    <td><input value={editVehicle.make} onChange={e => setEditVehicle(ev => ({ ...ev, make: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Make" title="Make" /></td>
+                    <td><input value={editVehicle.model} onChange={e => setEditVehicle(ev => ({ ...ev, model: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Model" title="Model" /></td>
+                    <td><input value={editVehicle.engine} onChange={e => setEditVehicle(ev => ({ ...ev, engine: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Engine" title="Engine" /></td>
+                    <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="BHP" title="Stock BHP" /></td>
+                    <td><input value={editVehicle.stockNm} onChange={e => setEditVehicle(ev => ({ ...ev, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Nm" title="Stock Nm" /></td>
+                    <td><input value={editVehicle.stage1} onChange={e => setEditVehicle(ev => ({ ...ev, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 1" title="Stage 1" /></td>
+                    <td><input value={editVehicle.stage2} onChange={e => setEditVehicle(ev => ({ ...ev, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 2" title="Stage 2" /></td>
+                    <td><input value={editVehicle.stage3} onChange={e => setEditVehicle(ev => ({ ...ev, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 3" title="Stage 3" /></td>      <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
                     <td><input value={editVehicle.stockNm} onChange={e => setEditVehicle(ev => ({ ...ev, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
                     <td><input value={editVehicle.stage1} onChange={e => setEditVehicle(ev => ({ ...ev, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
                     <td><input value={editVehicle.stage2} onChange={e => setEditVehicle(ev => ({ ...ev, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
