@@ -5,28 +5,19 @@ export const metadata = {
 };
 
 export default function Services() {
+
   return (
     <>
-      <Head>
-        <title>Our Services | Carnage Remaps Performance Tuning Kent</title>
-        <meta name="description" content="Explore Carnage Remaps’ full range of ECU remapping, performance tuning, diagnostics, DPF/EGR solutions, and more. Based in Canterbury, serving all of Kent." />
-        <meta name="keywords" content="ECU remapping, car tuning, diagnostics, DPF, EGR, speed limiter, services, Canterbury, Kent, Carnage Remaps" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Our Services | Carnage Remaps Performance Tuning Kent" />
-        <meta property="og:description" content="Professional car tuning and remapping services in Canterbury and Kent. Power, efficiency, and reliability for every vehicle." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://carnageremaps.co.uk/services" />
-          <div className="max-w-4xl mx-auto text-center">
-            <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 drop-shadow-lg">Our Services</h1>
-            <p className="text-2xl mb-6 font-semibold text-gray-900">ECU Remapping, Performance Tuning & Diagnostics in Kent</p>
-            <p className="mb-8 text-lg text-gray-700">Carnage Remaps offers a comprehensive range of vehicle tuning and remapping services in Canterbury and across Kent. All work is carried out by experienced professionals using the latest technology and custom solutions for your vehicle.</p>
-            <div className="space-x-4 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-0 mt-4">
-              <a href="/contact" className="bg-gradient-to-r from-black via-gray-800 to-gray-900 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-gray-900 hover:to-black transition">Get a Free Quote</a>
-              <a href="https://wa.me/447546371963" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-green-400 to-green-600 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-green-500 hover:to-green-700 transition">WhatsApp</a>
-            </div>
+      <main>
+        <div className="max-w-4xl mx-auto text-center">
+          <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 drop-shadow-lg">Our Services</h1>
+          <p className="text-2xl mb-6 font-semibold text-gray-900">ECU Remapping, Performance Tuning & Diagnostics in Kent</p>
+          <p className="mb-8 text-lg text-gray-700">Carnage Remaps offers a comprehensive range of vehicle tuning and remapping services in Canterbury and across Kent. All work is carried out by experienced professionals using the latest technology and custom solutions for your vehicle.</p>
+          <div className="space-x-4 flex flex-col sm:flex-row justify-center items-center gap-4 sm:gap-0 mt-4">
+            <a href="/contact" className="bg-gradient-to-r from-black via-gray-800 to-gray-900 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-gray-900 hover:to-black transition">Get a Free Quote</a>
+            <a href="https://wa.me/447546371963" target="_blank" rel="noopener noreferrer" className="bg-gradient-to-r from-green-400 to-green-600 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-green-500 hover:to-green-700 transition">WhatsApp</a>
           </div>
-        </section>
+        </div>
 
         {/* Services Grid */}
         <section className="py-16 bg-white">

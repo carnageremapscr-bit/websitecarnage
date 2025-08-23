@@ -47,7 +47,7 @@ export default function Contact() {
                 <textarea placeholder="Your Message" rows={4} className="px-4 py-3 rounded-lg border border-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                 <button type="submit" className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-yellow-500 hover:to-orange-600 transition">Send Message</button>
               </form>
-              <p className="text-xs text-gray-500 mt-2">*This form is for demonstration. Please use email, phone, or WhatsApp for fastest response.</p>
+          <p className="text-xs text-gray-500 mt-2">*This form is for demonstration. Please use email, phone, or WhatsApp for fastest response.</p>
             </div>
           </div>
         </section>
