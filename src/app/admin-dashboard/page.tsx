@@ -27,7 +27,27 @@ interface SiteSettings {
   homepageAnnouncement: string;
 }
 
+import { useRouter } from "next/navigation";
+
 export default function AdminDashboard() {
+  const router = useRouter();
+  useEffect(() => {
+    if (typeof window !== "undefined") {
+      const user = localStorage.getItem("carnage_user");
+      if (!user) {
+        router.replace("/login");
+        return;
+      }
+      try {
+        const parsed = JSON.parse(user);
+        if (parsed.role !== "admin") {
+          router.replace("/login");
+        }
+      } catch {
+        router.replace("/login");
+      }
+    }
+  }, [router]);
   // Debug: confirm component renders
   useEffect(() => {
     console.log("AdminDashboard component mounted");
