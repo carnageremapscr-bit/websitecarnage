@@ -1,5 +1,9 @@
 "use client";
-import Head from "next/head";
+
+export const metadata = {
+  title: "Customer Dashboard | Carnage Remaps",
+  description: "View your remap history, manage bookings, and contact support.",
+};
 import { useEffect, useState } from "react";
 
 type Booking = {
@@ -57,9 +61,6 @@ export default function CustomerDashboard() {
 
   return (
     <>
-      <Head>
-        <title>Customer Dashboard | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-50 via-white to-gray-100">
         <div className="bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-200 p-8 w-full max-w-2xl">
           <h1 className="text-3xl font-extrabold mb-6 text-yellow-700 text-center">Welcome to Your Dashboard</h1>

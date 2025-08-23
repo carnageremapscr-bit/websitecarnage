@@ -1,4 +1,8 @@
-import Head from "next/head";
+
+export const metadata = {
+  title: "Services | Carnage Remaps",
+  description: "Explore our remapping and diagnostic services.",
+};
 
 export default function Services() {
   return (
@@ -13,9 +17,6 @@ export default function Services() {
         <meta property="og:description" content="Professional car tuning and remapping services in Canterbury and Kent. Power, efficiency, and reliability for every vehicle." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://carnageremaps.co.uk/services" />
-      </Head>
-  <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 text-gray-800">
-        <section className="py-20 bg-yellow-400 text-black">
           <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 drop-shadow-lg">Our Services</h1>
             <p className="text-2xl mb-6 font-semibold text-gray-900">ECU Remapping, Performance Tuning & Diagnostics in Kent</p>

@@ -1,4 +1,8 @@
-import Head from "next/head";
+
+export const metadata = {
+  title: "Contact | Carnage Remaps",
+  description: "Contact Carnage Remaps for remapping, diagnostics, and support.",
+};
 
 export default function Contact() {
   return (
@@ -13,11 +17,6 @@ export default function Contact() {
         <meta property="og:description" content="Get in touch with Carnage Remaps for professional car tuning and remapping in Canterbury and Kent." />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="https://carnageremaps.co.uk/contact" />
-      </Head>
-      <main className="bg-gray-100 text-gray-800">
-        {/* Hero & Contact Options */}
-        <section className="py-20 bg-gradient-to-br from-yellow-400 via-orange-100 to-white text-black">
-          <div className="max-w-4xl mx-auto text-center">
             <h1 className="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 drop-shadow">Contact Carnage Remaps</h1>
             <p className="text-xl mb-6">Ready to transform your drive? Our team responds quickly—usually within the hour during business times. We’re here to answer your questions, provide expert advice, and book your remap at a time that suits you.</p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">

@@ -1,11 +1,12 @@
-import Head from "next/head";
+
+export const metadata = {
+  title: "Terms & Privacy | Carnage Remaps",
+  description: "Read our terms and privacy policy.",
+};
 
 export default function Terms() {
   return (
     <>
-      <Head>
-        <title>Terms & Privacy | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 flex flex-col items-center justify-center p-8">
         <div className="max-w-2xl w-full bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-200 p-8">
           <h1 className="text-3xl font-extrabold mb-6 text-yellow-700 text-center">Terms & Privacy</h1>

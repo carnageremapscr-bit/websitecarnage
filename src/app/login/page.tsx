@@ -1,5 +1,9 @@
 "use client";
-import Head from "next/head";
+
+export const metadata = {
+  title: "Login | Carnage Remaps",
+  description: "Login to your Carnage Remaps account.",
+};
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 
@@ -37,9 +41,6 @@ export default function Login() {
 
   return (
     <>
-      <Head>
-        <title>Login | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen flex flex-col items-center justify-center bg-gradient-to-br from-yellow-50 via-white to-gray-100">
         <div className="bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-200 p-8 w-full max-w-md">
           <h1 className="text-3xl font-extrabold mb-6 text-yellow-700 text-center">Login</h1>

@@ -2,7 +2,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Image from "next/image";
-import Head from "next/head";
+
+export const metadata = {
+  title: "Admin Dashboard | Carnage Remaps",
+  description: "Admin dashboard for managing users, bookings, and settings.",
+};
 
 type User = {
   email: string;
@@ -186,9 +190,6 @@ export default function AdminDashboard() {
   // ...existing code...
   return (
     <>
-      <Head>
-        <title>Admin Dashboard | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen flex flex-col items-center justify-center bg-white">
         <div className="bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-400 p-8 w-full max-w-2xl">
           <h1 className="text-3xl font-extrabold mb-6 text-black text-center">Admin Dashboard</h1>

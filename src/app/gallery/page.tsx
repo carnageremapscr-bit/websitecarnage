@@ -1,4 +1,8 @@
-import Head from "next/head";
+
+export const metadata = {
+  title: "Gallery | Carnage Remaps",
+  description: "See photos of our remapping work and workshop.",
+};
 
 
 const images = [
@@ -16,9 +20,6 @@ const images = [
 export default function Gallery() {
   return (
     <>
-      <Head>
-        <title>Gallery | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 flex flex-col items-center justify-center p-8">
         <div className="max-w-3xl w-full bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-200 p-8">
           <h1 className="text-3xl font-extrabold mb-6 text-yellow-700 text-center">Gallery</h1>

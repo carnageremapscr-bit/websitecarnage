@@ -1,11 +1,12 @@
-import Head from "next/head";
+
+export const metadata = {
+  title: "Blog | Carnage Remaps",
+  description: "Read the latest news and tips from Carnage Remaps.",
+};
 
 export default function Blog() {
   return (
     <>
-      <Head>
-        <title>Blog | Carnage Remaps</title>
-      </Head>
       <main className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-gray-100 flex flex-col items-center justify-center p-8">
         <div className="max-w-2xl w-full bg-white/90 rounded-2xl shadow-xl border-2 border-yellow-200 p-8">
           <h1 className="text-3xl font-extrabold mb-6 text-yellow-700 text-center">Carnage Remaps Blog</h1>
