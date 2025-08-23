@@ -50,7 +50,7 @@ export default function Contact() {
           <p className="text-xs text-gray-500 mt-2">*This form is for demonstration. Please use email, phone, or WhatsApp for fastest response.</p>
             </div>
           </div>
-        </section>
+  </section>
 
         {/* FAQ Section - visually amplified */}
         <section className="py-16 bg-gradient-to-br from-white via-yellow-50 to-yellow-100">
