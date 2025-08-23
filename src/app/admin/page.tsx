@@ -269,7 +269,36 @@ export default function AdminPage() {
     );
   }
 
+
+  // --- Section: Users ---
+  function UsersSection() {
+    return (
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Users</h2>
+        <div className="text-gray-700">(Users management coming soon)</div>
+      </section>
+    );
+  }
+
+  // --- Section: Files ---
+  function FilesSection() {
+    return (
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Files</h2>
+        <div className="text-gray-700">(Files management coming soon)</div>
+      </section>
+    );
+  }
+
   // --- Section: Marketing Tools ---
+  function MarketingToolsSection() {
+    return (
+      <section className="p-10">
+        <h2 className="text-3xl font-bold text-yellow-700 mb-6">Marketing Tools</h2>
+        <div className="text-gray-700">(Marketing tools coming soon)</div>
+      </section>
+    );
+  }
 
   // --- Section: Knowledge Base ---
   function KnowledgeBaseSection() {
