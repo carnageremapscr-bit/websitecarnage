@@ -613,7 +613,7 @@ export default function Dashboard() {
                   ) : pagedFiles.length === 0 ? (
                     <tr><td colSpan={4} className="text-center py-4 text-gray-500">No files found.</td></tr>
                   ) : pagedFiles.map((row, i) => (
-                    <tr key={row.filename + row.customer} className="border-b last:border-b-0">
+                    <tr key={`${row.filename || "-"}_${row.customer || "-"}_${i}`} className="border-b last:border-b-0">
                       <td className="py-2 px-3">{i + 1 + (filePage - 1) * filesPerPage}</td>
                       <td className="py-2 px-3">{row.filename || row.vehicle || "-"}</td>
                       <td className="py-2 px-3">{row.customer || "-"}</td>
