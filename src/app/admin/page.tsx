@@ -1,7 +1,7 @@
 
 
   "use client";
-  import React, { useState, useEffect } from "react";
+  import React, { useState } from "react";
   import { apiFetch } from "@/utils/apiFetch";
 
   // --- Section: Dashboard Home ---
@@ -47,12 +47,6 @@ export default function AdminPage() {
     { label: "File Service", icon: "🛠️" },
   ];
   const [active, setActive] = useState("Dashboard");
-  // Users
-  const [users, setUsers] = useState<User[]>([]);
-  const [usersLoading, setUsersLoading] = useState(true);
-  // Files
-  const [fileRows, setFileRows] = useState<FileRow[]>([]);
-  const [fileLoading, setFileLoading] = useState(true);
   // Bookings
   const [bookings, setBookings] = useState<Booking[]>([]);
   const [bookingsLoading, setBookingsLoading] = useState(true);
