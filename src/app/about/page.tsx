@@ -7,16 +7,7 @@ export const metadata = {
 export default function About() {
   return (
     <>
-      <Head>
-        <title>About Carnage Remaps | Performance Tuning in Kent</title>
-        <meta name="description" content="Learn about Carnage Remaps, Canterbury’s leading ECU remapping and car tuning specialists. Trusted across Kent for performance, reliability, and customer care." />
-        <meta name="keywords" content="about Carnage Remaps, ECU remapping, car tuning, performance, Canterbury, Kent, expert technicians, reviews" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="About Carnage Remaps | Performance Tuning in Kent" />
-        <meta property="og:description" content="Meet the team at Carnage Remaps. Professional, experienced, and trusted for car tuning in Kent." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://carnageremaps.co.uk/about" />
+      <main>
         <section id="hero" className="bg-black text-white py-20 text-center">
           <h1 className="text-5xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 via-orange-500 to-red-500 drop-shadow-lg">About Carnage Remaps</h1>
           <p className="text-2xl mb-6 font-semibold text-gray-100">Kent’s Most Trusted ECU Remapping & Performance Tuning Experts</p>

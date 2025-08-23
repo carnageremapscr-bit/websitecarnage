@@ -7,16 +7,9 @@ export const metadata = {
 export default function Contact() {
   return (
     <>
-      <Head>
-        <title>Contact Carnage Remaps | Performance Tuning in Kent</title>
-        <meta name="description" content="Contact Carnage Remaps for ECU remapping, car tuning, diagnostics, and more in Canterbury and Kent. Get a free quote or expert advice today." />
-        <meta name="keywords" content="contact Carnage Remaps, ECU remapping, car tuning, performance, diagnostics, Canterbury, Kent, WhatsApp, map" />
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="robots" content="index, follow" />
-        <meta property="og:title" content="Contact Carnage Remaps | Performance Tuning in Kent" />
-        <meta property="og:description" content="Get in touch with Carnage Remaps for professional car tuning and remapping in Canterbury and Kent." />
-        <meta property="og:type" content="website" />
-        <meta property="og:url" content="https://carnageremaps.co.uk/contact" />
+      <main>
+        <section className="py-16 bg-gradient-to-br from-white via-yellow-50 to-yellow-100">
+          <div className="max-w-4xl mx-auto px-4">
             <h1 className="text-4xl font-extrabold mb-4 text-transparent bg-clip-text bg-gradient-to-r from-yellow-500 via-orange-500 to-red-500 drop-shadow">Contact Carnage Remaps</h1>
             <p className="text-xl mb-6">Ready to transform your drive? Our team responds quickly—usually within the hour during business times. We’re here to answer your questions, provide expert advice, and book your remap at a time that suits you.</p>
             <div className="flex flex-col sm:flex-row justify-center items-center gap-4 mt-6">
@@ -47,10 +40,10 @@ export default function Contact() {
                 <textarea placeholder="Your Message" rows={4} className="px-4 py-3 rounded-lg border border-yellow-200 focus:outline-none focus:ring-2 focus:ring-yellow-400" />
                 <button type="submit" className="bg-gradient-to-r from-yellow-400 to-orange-500 text-white px-8 py-3 rounded-xl font-bold shadow hover:from-yellow-500 hover:to-orange-600 transition">Send Message</button>
               </form>
-          <p className="text-xs text-gray-500 mt-2">*This form is for demonstration. Please use email, phone, or WhatsApp for fastest response.</p>
+              <p className="text-xs text-gray-500 mt-2">*This form is for demonstration. Please use email, phone, or WhatsApp for fastest response.</p>
             </div>
           </div>
-  </section>
+        </section>
 
         {/* FAQ Section - visually amplified */}
         <section className="py-16 bg-gradient-to-br from-white via-yellow-50 to-yellow-100">
