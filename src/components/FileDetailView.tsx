@@ -1,19 +1,20 @@
 
 import React, { useState, useEffect } from "react";
+import { UploadFile, ChatMessage } from "../types";
 
 // Fetch chat messages for a file
-async function fetchFileChat(fileId) {
-  const res = await fetch(`/api/files/chat?fileId=${encodeURIComponent(fileId)}`);
+async function fetchFileChat(fileId: string | number): Promise<ChatMessage[]> {
+  const res = await fetch(`/api/files/chat?fileId=${encodeURIComponent(String(fileId))}`);
   if (!res.ok) return [];
   const data = await res.json();
   return data.messages || [];
 }
 
 // Send a chat message for a file (optionally with file)
-async function sendFileChat(fileId, sender, text, file) {
+async function sendFileChat(fileId: string | number, sender: string, text: string, file?: File | null) {
   if (file) {
     const formData = new FormData();
-    formData.append("fileId", fileId);
+    formData.append("fileId", String(fileId));
     formData.append("sender", sender);
     formData.append("text", text);
     formData.append("file", file);
@@ -23,7 +24,7 @@ async function sendFileChat(fileId, sender, text, file) {
     });
     if (!res.ok) return null;
     const data = await res.json();
-    return data.message;
+    return data.message as ChatMessage | null;
   } else {
     const res = await fetch(`/api/files/chat-upload`, {
       method: "POST",
@@ -32,38 +33,34 @@ async function sendFileChat(fileId, sender, text, file) {
     });
     if (!res.ok) return null;
     const data = await res.json();
-    return data.message;
+    return data.message as ChatMessage | null;
   }
 }
 
 
-// Business branding colors
 const brandYellow = "#FFD600";
 const brandBlack = "#111";
-const brandRed = "#E53935";
 
-const openingHours = { open: 9, close: 21 }; // 9:00 to 21:00
-
-const FileDetailView = ({ file, onBack }) => {
+const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void; }) => {
   // Chat and admin return not needed
   const [originalFileUrl, setOriginalFileUrl] = useState("");
-  const [now, setNow] = useState(new Date());
   const [uploading, setUploading] = useState(false);
-  const [chatMessages, setChatMessages] = useState([]);
+  const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
   const [chatInput, setChatInput] = useState("");
   const [chatLoading, setChatLoading] = useState(false);
   const [chatError, setChatError] = useState("");
-  const [chatFile, setChatFile] = useState(null);
+  const [chatFile, setChatFile] = useState<File | null>(null);
 
   useEffect(() => {
     // Fetch chat and set download URL
-    const load = async () => {
+  const load = async () => {
       setChatLoading(true);
       setChatError("");
       try {
         const msgs = await fetchFileChat(file.id);
         setChatMessages(msgs);
-      } catch (e) {
+      } catch (err) {
+        console.error("FileDetailView load error:", err);
         setChatError("Failed to load chat");
       }
       setChatLoading(false);
@@ -77,13 +74,13 @@ const FileDetailView = ({ file, onBack }) => {
 
   // No chat or admin return logic
 
-  const handleFileUpload = async (e) => {
-    const fileToUpload = e.target.files[0];
+  const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    const fileToUpload = e.target.files?.[0];
     if (!fileToUpload) return;
     setUploading(true);
     // TODO: Implement upload logic to backend
-    setTimeout(() => setUploading(false), 1200); // Simulate upload
-    setChatMessages(msgs => ([...msgs, { sender: "You", time: new Date().toLocaleString(), text: `Re-uploaded file: ${fileToUpload.name}` }]));
+  setTimeout(() => setUploading(false), 1200); // Simulate upload
+  setChatMessages(msgs => ([...msgs, { sender: "You", time: new Date().toLocaleString(), text: `Re-uploaded file: ${fileToUpload.name}` }]));
   };
 
   const handleChatSend = async () => {
@@ -95,19 +92,20 @@ const FileDetailView = ({ file, onBack }) => {
       if (msg) setChatMessages(msgs => ([...msgs, msg]));
       setChatInput("");
       setChatFile(null);
-    } catch (e) {
+    } catch (err) {
+      console.error("FileDetailView send error:", err);
       setChatError("Failed to send message");
     }
     setChatLoading(false);
   };
 
   return (
-    <div style={{ background: "#fff", color: brandBlack }} className="rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative">
-      <button style={{ background: brandRed, color: "#fff" }} className="absolute top-4 left-4 px-3 py-1 rounded hover:opacity-80" onClick={onBack}>
+    <div className="bg-white text-black rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative">
+      <button className="absolute top-4 left-4 px-3 py-1 rounded bg-red-600 text-white hover:opacity-80" onClick={onBack}>
         &larr; Back to files
       </button>
       <div className="mb-4">
-        <span style={{ background: "#43a047", color: "#fff" }} className="inline-block px-3 py-1 rounded font-bold mr-2">Returned</span>
+        <span className="inline-block px-3 py-1 rounded font-bold mr-2 bg-green-600 text-white">Returned</span>
         <span className="font-bold">File #{file.id}</span>
       </div>
       <div className="mb-2">
@@ -136,7 +134,7 @@ const FileDetailView = ({ file, onBack }) => {
         )}
         <div className="mt-2">
           <label htmlFor="reupload" className="block mb-1 font-semibold">Re-upload file:</label>
-          <input id="reupload" type="file" onChange={handleFileUpload} className="block" style={{ color: brandBlack }} disabled={uploading} />
+          <input id="reupload" type="file" onChange={handleFileUpload} className="block text-black" disabled={uploading} title="Reupload file" />
           {uploading && <span className="ml-2 text-xs text-gray-600">Uploading...</span>}
         </div>
       </div>
@@ -166,9 +164,10 @@ const FileDetailView = ({ file, onBack }) => {
           />
           <input
             type="file"
-            onChange={e => setChatFile(e.target.files[0])}
+            onChange={e => setChatFile(e.target.files?.[0] ?? null)}
             className="border rounded px-2 py-1 text-black"
             disabled={chatLoading}
+            title="Attach file"
           />
           <button
             className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-500"

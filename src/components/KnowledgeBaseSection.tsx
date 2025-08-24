@@ -1,9 +1,15 @@
+"use client";
 import React, { useEffect, useState } from "react";
+import { Article } from "../types";
 
-const KnowledgeBaseSection = ({ isAdmin }) => {
-  const [articles, setArticles] = useState([]);
+interface KnowledgeBaseSectionProps {
+  isAdmin?: boolean;
+}
+
+const KnowledgeBaseSection: React.FC<KnowledgeBaseSectionProps> = ({ isAdmin = false }) => {
+  const [articles, setArticles] = useState<Article[]>([]);
   const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchArticles = async () => {
@@ -15,7 +21,8 @@ const KnowledgeBaseSection = ({ isAdmin }) => {
         const data = await response.json();
         setArticles(data);
       } catch (err) {
-        setError(err.message);
+        const msg = err instanceof Error ? err.message : String(err);
+        setError(msg);
       } finally {
         setLoading(false);
       }

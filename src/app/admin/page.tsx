@@ -2,7 +2,10 @@
 
   "use client";
   import React, { useState } from "react";
+  import dynamic from "next/dynamic";
   import { apiFetch } from "@/utils/apiFetch";
+
+  const KnowledgeBaseSectionClient = dynamic(() => import('../../components/KnowledgeBaseSection'), { ssr: false });
 
   // --- Section: Dashboard Home ---
   function DashboardHome() {
@@ -376,7 +379,7 @@ export default function AdminPage() {
           )}
           {active === "Invoices" && <InvoicesSection />}
           {active === "Marketing Tools" && <MarketingToolsSection />}
-          {active === "Knowledge Base" && <KnowledgeBaseSection />}
+                  {active === "Knowledge Base" && <KnowledgeBaseSectionClient isAdmin={true} />}
           {active === "DTC Search" && <DTCSearchSection />}
           {active === "File Service" && <FileServiceSection />}
         </div>

@@ -1,24 +1,26 @@
 import React, { useEffect, useState } from "react";
-
+import { UploadFile } from "../types";
 // import dynamic from "next/dynamic";
 // const FileAdminSection = dynamic(() => import("./FileAdminSection"), { ssr: false });
 import FileDetailView from "./FileDetailView";
 
 
-const FilesSection = ({ isAdmin = false }) => {
-  const [files, setFiles] = useState([]);
+const FilesSection = ({ isAdmin = false }: { isAdmin?: boolean }) => {
+  const [files, setFiles] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFile, setSelectedFile] = useState(null);
+  const [selectedFile, setSelectedFile] = useState<UploadFile | null>(null);
 
   useEffect(() => {
+    console.log("Fetching files...");
     const fetchFiles = async () => {
       try {
         const response = await fetch("/api/files");
         let data = await response.json();
+        console.log("Fetched files:", data);
         if (!isAdmin) {
-          // Only show files belonging to the logged-in user
           const user = typeof window !== "undefined" ? JSON.parse(localStorage.getItem("carnage_user") || '{}') : {};
-          data = data.filter(file => {
+          console.log("Current user:", user);
+          data = (data as UploadFile[]).filter((file: UploadFile) => {
             if (!file || !file.customer) return false;
             if (file.filename && (
               file.filename.toLowerCase().includes("admin") ||
@@ -63,8 +65,8 @@ const FilesSection = ({ isAdmin = false }) => {
           </tr>
         </thead>
         <tbody>
-          {files.map((file, index) => (
-            <tr key={file.id} className="hover:bg-yellow-100 cursor-pointer" onClick={() => setSelectedFile(file)}>
+          {files.map((file: UploadFile, index: number) => (
+            <tr key={String(file.id)} className="hover:bg-yellow-100 cursor-pointer" onClick={() => setSelectedFile(file)}>
               <td className="p-2 border border-yellow-400 text-center">{index + 1}</td>
               <td className="p-2 border border-yellow-400 text-center">{file.lastUpdated}</td>
               <td className="p-2 border border-yellow-400 text-center">{file.vehicle}</td>
