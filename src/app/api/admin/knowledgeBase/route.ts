@@ -13,7 +13,7 @@ function readData() {
   }
 }
 
-function writeData(data) {
+function writeData(data: Record<string, unknown>) {
   fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), "utf-8");
 }
 

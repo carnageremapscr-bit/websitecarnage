@@ -1,4 +1,4 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
 
@@ -16,7 +16,7 @@ function readData() {
   }
 }
 
-function writeData(data: any[]) {
+function writeData(data: { filename: string; originalName: string; uploaded: string }[]) {
   fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), "utf-8");
 }
 

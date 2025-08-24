@@ -1,9 +1,8 @@
-
 import React, { useState } from "react";
 
 const DTCSearchSection: React.FC = () => {
   const [query, setQuery] = useState("");
-  const [results, setResults] = useState<any[]>([]);
+  const [results, setResults] = useState<{ code: string; description: string; desc?: string }[]>([]);
   const [loading, setLoading] = useState(false);
 
   const handleSearch = async (e: React.FormEvent) => {

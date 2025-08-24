@@ -29,7 +29,7 @@ const AdminUserManagement: React.FC = () => {
   let data: User[] = await res.json();
   console.log("Fetched users:", data);
   // Normalize roles for display
-  data = data.map(u => ({ ...u, role: (u as any).role === "user" ? "customer" : (u as any).role }));
+  data = data.map(u => ({ ...u, role: u.role === "user" ? "customer" : u.role }));
   setUsers(data || []);
     } catch (err) {
       console.error("Error fetching users:", err);
@@ -94,11 +94,11 @@ const AdminUserManagement: React.FC = () => {
     }
   };
 
-  const handleEditUser = (user: User): void => {
+  const handleEditUser = (user: { id: number; name: string; email: string }) => {
     setEditUser(user);
   };
 
-  const handleSaveEdit = async (updatedUser: User): Promise<void> => {
+  const handleSaveEdit = async (updatedUser: { id: number; name: string; email: string }): Promise<void> => {
     setSaving(true);
     setError("");
     setSuccess("");
