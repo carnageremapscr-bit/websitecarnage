@@ -1,11 +1,17 @@
 import React, { useEffect, useState } from "react";
 
+interface File {
+  id: string;
+  filename: string;
+  status: string;
+}
+
 const FileAdminSection = () => {
-  const [files, setFiles] = useState([]);
+  const [files, setFiles] = useState<File[]>([]);
   const [loading, setLoading] = useState(true);
-  const [selectedFile, setSelectedFile] = useState(null);
-  const [chatOpen, setChatOpen] = useState(null);
-  const [chatMessages, setChatMessages] = useState({});
+  const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [chatOpen, setChatOpen] = useState<string | null>(null);
+  const [chatMessages, setChatMessages] = useState<Record<string, { sender: string; text: string; time: string }[]>>({});
   const [chatInput, setChatInput] = useState("");
 
   useEffect(() => {
@@ -23,19 +29,19 @@ const FileAdminSection = () => {
     fetchFiles();
   }, []);
 
-  const handleReturnTuned = (file) => {
+  const handleReturnTuned = (file: File) => {
     // TODO: Implement file return/upload logic
     alert(`Return tuned file for ${file.filename}`);
   };
 
-  const handleChatOpen = (id) => {
+  const handleChatOpen = (id: string) => {
     setChatOpen(id);
-    if (!chatMessages[id]) setChatMessages(msgs => ({ ...msgs, [id]: [] }));
+    if (!chatMessages[id]) setChatMessages((msgs) => ({ ...msgs, [id]: [] }));
   };
 
-  const handleChatSend = (id) => {
+  const handleChatSend = (id: string) => {
     if (!chatInput.trim()) return;
-    setChatMessages(msgs => ({
+    setChatMessages((msgs) => ({
       ...msgs,
       [id]: [...(msgs[id] || []), { sender: "admin", text: chatInput, time: new Date().toLocaleTimeString() }],
     }));
