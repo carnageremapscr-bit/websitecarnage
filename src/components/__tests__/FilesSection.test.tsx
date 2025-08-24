@@ -35,7 +35,7 @@ describe("FilesSection", () => {
 
   it("handles retry action for failed files", async () => {
     const mockRetry = jest.fn(() => Promise.resolve({ ok: true }));
-    global.fetch = jest.fn((url, options) => {
+    global.fetch = jest.fn((url) => {
       if (url.includes("retry")) {
         return mockRetry();
       }

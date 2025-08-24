@@ -1,4 +1,4 @@
-import { NextResponse } from "next/server";
+import { NextResponse, NextRequest } from "next/server";
 import fs from "fs";
 import path from "path";
 
@@ -24,24 +24,24 @@ export async function GET() {
 export async function POST(req: NextRequest) {
   const data = readData();
   const newArticle = await req.json();
-  newArticle.id = data.length ? Math.max(...data.map(i => i.id)) + 1 : 1;
+  newArticle.id = data.length ? Math.max(...data.map((i: { id?: number }) => i.id ?? 0)) + 1 : 1;
   data.push(newArticle);
   writeData(data);
   return NextResponse.json({ ok: true, article: newArticle });
 }
 
-export async function DELETE(req) {
+export async function DELETE(req: NextRequest) {
   const { id } = await req.json();
   let data = readData();
-  data = data.filter(i => i.id !== id);
+  data = data.filter((i: { id: number }) => i.id !== id);
   writeData(data);
   return NextResponse.json({ ok: true });
 }
 
-export async function PATCH(req) {
+export async function PATCH(req: NextRequest) {
   const { id, ...update } = await req.json();
   const data = readData();
-  const idx = data.findIndex(i => i.id === id);
+  const idx = data.findIndex((i: { id: number }) => i.id === id);
   if (idx !== -1) {
     data[idx] = { ...data[idx], ...update };
     writeData(data);

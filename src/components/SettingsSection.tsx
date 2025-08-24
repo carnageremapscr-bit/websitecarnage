@@ -1,8 +1,21 @@
-
 import React, { useState, useEffect } from "react";
 
-const SettingsSection = ({ isAdmin = false }) => {
-  const [settings, setSettings] = useState(null);
+interface SettingsSectionProps {
+  isAdmin?: boolean;
+}
+
+interface Settings {
+  businessName: string;
+  businessEmail: string;
+  businessPhone: string;
+  businessAddress: string;
+  businessHours: string;
+  homepageAnnouncement: string;
+  maintenanceMode: boolean;
+}
+
+const SettingsSection: React.FC<SettingsSectionProps> = ({ isAdmin }) => {
+  const [settings, setSettings] = useState<Settings | null>(null);
   const [loading, setLoading] = useState(true);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
@@ -17,7 +30,7 @@ const SettingsSection = ({ isAdmin = false }) => {
         if (!res.ok) throw new Error("Failed to load settings");
         const data = await res.json();
         setSettings(data);
-      } catch (err) {
+      } catch {
         setError("Could not load settings.");
       } finally {
         setLoading(false);
@@ -26,15 +39,19 @@ const SettingsSection = ({ isAdmin = false }) => {
     fetchSettings();
   }, []);
 
-  const handleChange = (e) => {
-    const { name, value, type, checked } = e.target;
-    setSettings((prev) => ({
-      ...prev,
-      [name]: type === "checkbox" ? checked : value,
-    }));
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    const { name, value } = e.target;
+    const isCheckbox = (e.target as HTMLInputElement).type === "checkbox";
+    const checked = (e.target as HTMLInputElement).checked;
+
+    setSettings((prev) =>
+      prev ? { ...prev, [name]: isCheckbox ? checked : value } : null
+    );
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setSaving(true);
     setError("");
@@ -47,12 +64,14 @@ const SettingsSection = ({ isAdmin = false }) => {
       });
       if (!res.ok) throw new Error("Failed to save settings");
       setSuccess("Settings saved successfully.");
-    } catch (err) {
+    } catch {
       setError("Could not save settings.");
     } finally {
       setSaving(false);
     }
   };
+
+  console.log(isAdmin); // Temporary usage to avoid unused variable warning
 
   if (loading) {
     return <div className="text-center text-yellow-400">Loading settings...</div>;

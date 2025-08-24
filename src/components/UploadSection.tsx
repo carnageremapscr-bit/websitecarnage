@@ -188,6 +188,7 @@ const UploadSection: React.FC = () => {
             onChange={handleInputChange}
             required
             className="w-full p-2 rounded bg-gray-700 text-yellow-400"
+            title="Select the tool used"
           >
             <option value="">Select tool</option>
             <option value="Slave tool">Slave tool</option>

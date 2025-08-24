@@ -21,6 +21,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({ user, onClose, onSave }) 
       await onSave({ ...user, role, credit });
       onClose();
     } catch (err) {
+      console.error(err); // Log the error for debugging purposes
       setError("Failed to save user changes.");
     } finally {
       setSaving(false);

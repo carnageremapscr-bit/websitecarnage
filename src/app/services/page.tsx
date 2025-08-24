@@ -1,11 +1,9 @@
-
 export const metadata = {
   title: "Services | Carnage Remaps",
   description: "Explore our remapping and diagnostic services.",
 };
 
 export default function Services() {
-
   return (
     <>
       <main>
@@ -140,15 +138,5 @@ export default function Services() {
         </footer>
       </main>
     </>
-  );
-}
-
-function ServiceCard({ title, icon, desc }: { title: string; icon: string; desc: string }) {
-  return (
-    <div className="bg-black/80 border-2 border-yellow-400 rounded-xl p-8 flex flex-col items-center shadow-lg hover:scale-105 transition-transform">
-      <div className="text-5xl mb-4">{icon}</div>
-      <h2 className="text-2xl font-bold mb-2 text-yellow-300">{title}</h2>
-      <p className="text-yellow-100 text-center">{desc}</p>
-    </div>
   );
 }

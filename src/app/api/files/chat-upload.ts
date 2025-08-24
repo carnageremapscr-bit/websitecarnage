@@ -13,11 +13,13 @@ const chatUploadsDir = path.join(process.cwd(), "uploads", "chat");
 if (!fs.existsSync(chatDir)) fs.mkdirSync(chatDir, { recursive: true });
 if (!fs.existsSync(chatUploadsDir)) fs.mkdirSync(chatUploadsDir, { recursive: true });
 
-function getChatFilePath(fileId) {
+function getChatFilePath(fileId: string) {
   return path.join(chatDir, `${fileId}.json`);
 }
 
-export async function POST(req) {
+import { NextRequest } from "next/server";
+
+export async function POST(req: NextRequest) {
   // Support both JSON and multipart/form-data
   const contentType = req.headers.get("content-type") || "";
   if (contentType.includes("multipart/form-data")) {
@@ -64,7 +66,7 @@ export async function POST(req) {
   }
 }
 
-export async function GET(req) {
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const fileId = searchParams.get("fileId");
   if (!fileId) return NextResponse.json({ error: "Missing fileId" }, { status: 400 });
