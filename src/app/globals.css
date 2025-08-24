@@ -12,6 +12,11 @@ body {
     padding: 1rem;
     width: 100%;
     overflow-x: hidden;
+    font-size: 1rem; /* Slightly larger font size */
+    background-color: #000; /* Ensure high contrast */
+    position: sticky; /* Keep navigation visible while scrolling */
+    top: 0;
+    z-index: 50;
   }
 
   nav .max-w-7xl {
@@ -25,7 +30,7 @@ body {
 
   nav .gap-8 {
     flex-direction: column;
-    gap: 0.5rem;
+    gap: 1rem; /* Add more spacing between items */
   }
 
   nav button {
@@ -45,13 +50,14 @@ body {
   nav a {
     display: block;
     text-align: center;
-    padding: 0.75rem 0;
+    padding: 1rem 0; /* Increase touch target size */
     border-radius: 0.25rem;
     transition: background-color 0.3s ease, color 0.3s ease;
+    font-size: 1.1rem; /* Improve readability */
   }
 
   nav a:hover {
-    background-color: #facc15;
-    color: #000;
+    background-color: #facc15; /* Highlight on hover */
+    color: #000; /* Ensure text is visible */
   }
 }
