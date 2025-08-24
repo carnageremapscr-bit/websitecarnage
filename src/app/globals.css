@@ -45,6 +45,11 @@ body {
     background-color: rgba(0, 0, 0, 0.95);
     border-radius: 0.5rem;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-top: 0.5rem; /* Add space between menu and dropdown */
+  }
+
+  nav .absolute a:first-child {
+    padding-top: 1.25rem; /* Ensure first option is clearly visible */
   }
 
   nav a {
