@@ -1,3 +1,4 @@
+import Image from "next/image";
 
 export const metadata = {
   title: "Carnage Remaps | ECU Remapping & Diagnostics Canterbury Kent",
@@ -51,19 +52,19 @@ export default function Home() {
           <h3 className="text-3xl font-extrabold mb-8 text-center text-yellow-700">Featured Services</h3>
           <div className="grid md:grid-cols-3 gap-8">
             <div className="bg-white rounded-2xl shadow-lg border-2 border-yellow-200 p-6 flex flex-col items-center">
-              <img src="/file.svg" alt="ECU Remapping" className="h-16 mb-4" />
+              <Image src="/file.svg" alt="ECU Remapping" className="h-16 mb-4" width={64} height={64} />
               <h4 className="text-xl font-bold mb-2 text-yellow-700">ECU Remapping</h4>
               <p className="text-gray-700 mb-4">Unlock more power, torque, and efficiency with a custom tune for your vehicle.</p>
               <a href="/services" className="text-yellow-700 font-bold hover:underline">Learn More</a>
             </div>
             <div className="bg-white rounded-2xl shadow-lg border-2 border-yellow-200 p-6 flex flex-col items-center">
-              <img src="/window.svg" alt="Diagnostics" className="h-16 mb-4" />
+              <Image src="/window.svg" alt="Diagnostics" className="h-16 mb-4" width={64} height={64} />
               <h4 className="text-xl font-bold mb-2 text-yellow-700">Diagnostics</h4>
               <p className="text-gray-700 mb-4">Advanced fault finding, DPF/EGR solutions, and full health checks for peace of mind.</p>
               <a href="/services" className="text-yellow-700 font-bold hover:underline">Learn More</a>
             </div>
             <div className="bg-white rounded-2xl shadow-lg border-2 border-yellow-200 p-6 flex flex-col items-center">
-              <img src="/globe.svg" alt="Mobile Service" className="h-16 mb-4" />
+              <Image src="/globe.svg" alt="Mobile Service" className="h-16 mb-4" width={64} height={64} />
               <h4 className="text-xl font-bold mb-2 text-yellow-700">Mobile Service</h4>
               <p className="text-gray-700 mb-4">We come to you! Home, work, or roadside—serving all of Kent and beyond.</p>
               <a href="/contact" className="text-yellow-700 font-bold hover:underline">Book Now</a>
