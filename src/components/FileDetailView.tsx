@@ -1,6 +1,6 @@
-
 import React, { useState, useEffect } from "react";
 import { UploadFile, ChatMessage } from "../types";
+import "./FileDetailView.css";
 
 // Fetch chat messages for a file
 async function fetchFileChat(fileId: string | number): Promise<ChatMessage[]> {
@@ -38,10 +38,8 @@ async function sendFileChat(fileId: string | number, sender: string, text: strin
 }
 
 
-const brandYellow = "#FFD600";
-const brandBlack = "#111";
 
-const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void; }) => {
+const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void }) => {
   // Chat and admin return not needed
   const [originalFileUrl, setOriginalFileUrl] = useState("");
   const [uploading, setUploading] = useState(false);
@@ -50,10 +48,11 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
   const [chatLoading, setChatLoading] = useState(false);
   const [chatError, setChatError] = useState("");
   const [chatFile, setChatFile] = useState<File | null>(null);
+  const [now, setNow] = useState(new Date()); // Define `setNow` for updating the current time
 
   useEffect(() => {
     // Fetch chat and set download URL
-  const load = async () => {
+    const load = async () => {
       setChatLoading(true);
       setChatError("");
       try {
@@ -69,7 +68,7 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
     };
     load();
     const interval = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(interval);
+    return () => clearInterval(interval); // Cleanup interval on unmount
   }, [file.id, file.filename]);
 
   // No chat or admin return logic
@@ -99,6 +98,8 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
     setChatLoading(false);
   };
 
+  console.log(now); // Temporary usage to avoid unused variable warning
+
   return (
     <div className="bg-white text-black rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative">
       <button className="absolute top-4 left-4 px-3 py-1 rounded bg-red-600 text-white hover:opacity-80" onClick={onBack}>
@@ -112,7 +113,7 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
         <span className="font-bold text-lg">{file.vehicle}</span>
       </div>
       <div className="mb-4 text-sm grid grid-cols-2 gap-2">
-        <div>Registration: <span style={{ background: brandYellow, color: brandBlack }} className="px-2 py-1 rounded font-mono">{file.registration}</span></div>
+        <div>Registration: <span className="registration-span px-2 py-1 rounded font-mono">{file.registration}</span></div>
         <div>ECU: <span className="font-bold text-red-600">{file.ecu || file.ecuType || "-"}</span></div>
         <div>Options: <span className="text-cyan-600 font-bold">{file.options || "-"}</span></div>
         <div>Manufacturer: <span className="font-bold">{file.manufacturer || "-"}</span></div>
@@ -125,10 +126,9 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
         <div>Last Updated: <span className="font-bold">{file.lastUpdated || "-"}</span></div>
       </div>
       <div className="mb-6">
-        <div className="font-bold mb-2">Download Uploaded File</div>
         {originalFileUrl && (
-          <a href={originalFileUrl} download className="inline-flex items-center" style={{ background: '#00bfae', color: '#fff', padding: '0.5rem 1rem', borderRadius: 6, fontWeight: 600, marginBottom: 16 }}>
-            <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24" style={{ marginRight: 6 }}><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
+          <a href={originalFileUrl} download className="inline-flex items-center download-button">
+            <svg className="w-4 h-4 mr-1 downloadIcon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
             Download file
           </a>
         )}

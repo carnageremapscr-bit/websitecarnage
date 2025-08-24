@@ -19,17 +19,17 @@ function readData(): User[] {
   }
 }
 
-function writeData(data: any) {
+function writeData(data: User[]) {
   fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), "utf-8");
 }
 
 import { NextRequest } from "next/server";
 
-    const user = data.find((u: User) => u.email === email);
+export async function GET(req: NextRequest) {
   const { searchParams } = new URL(req.url);
   const email = searchParams.get("email");
-  console.log("[api/admin/users] GET - email=", email);
   const data = readData();
+  console.log("[api/admin/users] GET - email=", email);
   if (email) {
     const user = data.find(u => u.email === email);
     console.log("[api/admin/users] GET result:", user);
@@ -39,7 +39,7 @@ import { NextRequest } from "next/server";
   return NextResponse.json(data);
 }
 
-export async function PATCH(req) {
+export async function PATCH(req: NextRequest) {
   try {
   console.log("[api/admin/users] PATCH received");
     const body = await req.json();
@@ -67,7 +67,7 @@ export async function PATCH(req) {
   }
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   try {
   console.log("[api/admin/users] POST received");
     const payload = await req.json();
@@ -88,7 +88,7 @@ export async function POST(req) {
   }
 }
 
-export async function DELETE(req) {
+export async function DELETE(req: NextRequest) {
   try {
   console.log("[api/admin/users] DELETE received");
     const { email } = await req.json();

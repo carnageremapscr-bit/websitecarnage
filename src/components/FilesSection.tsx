@@ -46,7 +46,7 @@ const FilesSection = ({ isAdmin = false }: { isAdmin?: boolean }) => {
   }
 
   if (selectedFile) {
-    return <FileDetailView file={selectedFile} onBack={() => setSelectedFile(null)} isAdmin={isAdmin} />;
+    return <FileDetailView file={selectedFile} onBack={() => setSelectedFile(null)} />;
   }
 
   return (

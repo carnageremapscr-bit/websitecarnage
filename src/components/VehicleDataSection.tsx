@@ -4,7 +4,7 @@ import { Chart as ChartJS, CategoryScale, LinearScale, PointElement, LineElement
 
 ChartJS.register(CategoryScale, LinearScale, PointElement, LineElement, Title, Tooltip, Legend);
 
-const generateDynoChartData = (vehicle, stage) => {
+const generateDynoChartData = (vehicle: { stockBhp: number; stockNm: number }, stage: "stock" | "stage1" | "stage2") => {
   const stageMultiplier = {
     stock: 1,
     stage1: 1.2,
@@ -92,7 +92,7 @@ const chartOptions = {
   responsive: true,
   plugins: {
     legend: {
-      position: "top",
+      position: "top" as const,
       labels: {
         color: "#fff",
         font: {
@@ -140,8 +140,8 @@ const VehicleDataSection = () => {
   const [loading, setLoading] = useState(true);
   const [search, setSearch] = useState("");
   const [filteredData, setFilteredData] = useState<Array<{ make: string; model: string; year: number; engine: string; stockBhp: number; stockNm: number }>>([]);
-  const [selectedVehicle, setSelectedVehicle] = useState(null);
-  const [selectedStage, setSelectedStage] = useState("stock");
+  const [selectedVehicle, setSelectedVehicle] = useState<{ make: string; model: string; year: number; engine: string; stockBhp: number; stockNm: number } | null>(null);
+  const [selectedStage, setSelectedStage] = useState<"stock" | "stage1" | "stage2">("stock");
 
   useEffect(() => {
     const fetchVehicleData = async () => {
@@ -177,7 +177,7 @@ const VehicleDataSection = () => {
     setFilteredData(results);
   };
 
-  const handleRowClick = (vehicle) => {
+  const handleRowClick = (vehicle: { make: string; model: string; year: number; engine: string; stockBhp: number; stockNm: number }) => {
     setSelectedVehicle(vehicle);
   };
 
@@ -212,8 +212,9 @@ const VehicleDataSection = () => {
       <div className="flex gap-4 mb-4">
         <label className="text-yellow-400">Select Stage:</label>
         <select
+          aria-label="Select Stage"
           value={selectedStage}
-          onChange={(e) => setSelectedStage(e.target.value)}
+          onChange={(e) => setSelectedStage(e.target.value as "stock" | "stage1" | "stage2")}
           className="p-2 rounded bg-gray-700 text-yellow-400"
         >
           <option value="stock">Stock</option>

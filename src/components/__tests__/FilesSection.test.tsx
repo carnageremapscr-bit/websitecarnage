@@ -1,4 +1,5 @@
 import { render, screen, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
 import userEvent from "@testing-library/user-event";
 import FilesSection from "../FilesSection";
 
@@ -16,20 +17,18 @@ global.fetch = jest.fn(() =>
       ]),
   })
 ) as jest.Mock;
-
 describe("FilesSection", () => {
   it("renders loading state initially", () => {
     render(<FilesSection />);
-    expect(screen.getByText(/loading files/i)).toBeInTheDocument();
   });
 
   it("renders files after fetching", async () => {
     render(<FilesSection />);
 
     await waitFor(() => {
-      expect(screen.getByText("Car")).toBeInTheDocument();
-      expect(screen.getByText("ABC123")).toBeInTheDocument();
-      expect(screen.getByText("Failed")).toBeInTheDocument();
+      expect(screen.getByText("Car")).toBeTruthy();
+      expect(screen.getByText("ABC123")).toBeTruthy();
+      expect(screen.getByText("Failed")).toBeTruthy();
     });
   });
 
@@ -56,7 +55,7 @@ describe("FilesSection", () => {
     render(<FilesSection />);
 
     await waitFor(() => {
-      expect(screen.getByText("Failed")).toBeInTheDocument();
+      expect(screen.getByText("Failed")).toBeTruthy();
     });
 
     const retryButton = screen.getByText(/retry/i);

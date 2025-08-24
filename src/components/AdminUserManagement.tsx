@@ -94,11 +94,11 @@ const AdminUserManagement: React.FC = () => {
     }
   };
 
-  const handleEditUser = (user: { id: number; name: string; email: string }) => {
+  const handleEditUser = (user: User) => {
     setEditUser(user);
   };
 
-  const handleSaveEdit = async (updatedUser: { id: number; name: string; email: string }): Promise<void> => {
+  const handleSaveEdit = async (updatedUser: User): Promise<void> => {
     setSaving(true);
     setError("");
     setSuccess("");
