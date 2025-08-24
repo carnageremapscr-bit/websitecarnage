@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "title": "How to upload a file",
+    "summary": "Step-by-step guide for uploading files to the portal.",
+    "content": "1. Go to the Upload section. 2. Select your file. 3. Enter your email. 4. Click Upload."
+  },
+  {
+    "id": 2,
+    "title": "What is a remap?",
+    "summary": "Explanation of remapping and its benefits.",
+    "content": "Remapping is the process of modifying a vehicle's ECU software to improve performance, efficiency, or both."
+  }
+]

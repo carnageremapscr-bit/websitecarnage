@@ -1,35 +1,20 @@
 
 "use client";
-import React, { useState, useEffect } from "react";
+// (removed duplicate import)
 import Image from "next/image";
 
 
 
-type User = {
-  email: string;
-  role: string;
-};
 
-type Booking = {
-  id: number;
-  customer: string;
-  service: string;
-  date: string;
-};
-interface SiteSettings {
-  businessName: string;
-  businessEmail: string;
-  businessPhone: string;
-  businessAddress: string;
-  businessLogo: string;
-  businessHours: string;
-  maintenanceMode: boolean;
-  homepageAnnouncement: string;
-}
 
+import React, { useState, useEffect } from "react";
+import FilesSection from "../../components/FilesSection";
+import KnowledgeBaseSection from "../../components/KnowledgeBaseSection";
+import DTCSearchSection from "../../components/DTCSearchSection";
 import { useRouter } from "next/navigation";
 
 export default function AdminDashboard() {
+  // Only allow access for admin (redirect logic can be kept)
   const router = useRouter();
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -48,163 +33,39 @@ export default function AdminDashboard() {
       }
     }
   }, [router]);
-  // Debug: confirm component renders
-  useEffect(() => {
-    console.log("AdminDashboard component mounted");
-  }, []);
-  // Real API data for users and bookings
-  const [users, setUsers] = useState<User[] | null>([]);
-  const [bookings, setBookings] = useState<Booking[] | null>([]);
-  const [loading, setLoading] = useState(true);
-  const [userEmail, setUserEmail] = useState("");
-  const [userRole, setUserRole] = useState("customer");
-  const [bookingCustomer, setBookingCustomer] = useState("");
-  const [bookingService, setBookingService] = useState("");
-  const [bookingDate, setBookingDate] = useState("");
-  const [siteSettings, setSiteSettings] = useState<SiteSettings>({
-    businessName: "Carnage Remaps",
-    businessEmail: "info@carnageremaps.com",
-    businessPhone: "+44 1234 567890",
-    businessAddress: "123 Remap Lane, Tuning City, UK",
-    businessLogo: "",
-    businessHours: "Mon-Fri 9am-6pm",
-    maintenanceMode: false,
-    homepageAnnouncement: "",
-  });
-  const [settingsLoading, setSettingsLoading] = useState(true);
-  const [settingsForm, setSettingsForm] = useState(siteSettings);
 
-  useEffect(() => {
-    async function fetchData() {
-      setLoading(true);
-      const usersRes = await fetch("/api/admin/users");
-      const bookingsRes = await fetch("/api/admin/bookings");
-      try {
-        setUsers(await usersRes.json());
-      } catch {
-        setUsers(null);
-      }
-      try {
-        setBookings(await bookingsRes.json());
-      } catch {
-        setBookings(null);
-      }
-      setLoading(false);
-    }
-    fetchData();
-  }, []);
+  // Sidebar links for admin
+  const sidebarLinks = [
+    { label: "Files", icon: "📁" },
+    { label: "Knowledge Base", icon: "📚" },
+    { label: "DTC Codes", icon: "🔍" },
+  ];
+  const [active, setActive] = useState("Files");
 
-  // Fetch site settings
-  useEffect(() => {
-    let didCancel = false;
-    async function fetchSettings() {
-      setSettingsLoading(true);
-      let timeout: NodeJS.Timeout | null = null;
-      try {
-        // Timeout after 7 seconds
-        const controller = new AbortController();
-        timeout = setTimeout(() => controller.abort(), 7000);
-        const res = await fetch("/api/admin/settings", { signal: controller.signal });
-        if (!didCancel) {
-          if (res.ok) {
-            const data = await res.json();
-            setSiteSettings(data);
-            setSettingsForm(data);
-          } else {
-            setSiteSettings(siteSettings);
-          }
-        }
-      } catch {
-        if (!didCancel) {
-          setSiteSettings(siteSettings);
-        }
-      } finally {
-        if (timeout) clearTimeout(timeout);
-        if (!didCancel) setSettingsLoading(false);
-      }
-    }
-    fetchSettings();
-    return () => { didCancel = true; };
-  // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
-
-  async function addUser(e: React.FormEvent) {
-    e.preventDefault();
-    await fetch("/api/admin/users", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email: userEmail, role: userRole }),
-    });
-    setUserEmail("");
-    setUserRole("customer");
-    // Refresh
-    const usersRes = await fetch("/api/admin/users");
-    setUsers(await usersRes.json());
-  }
-
-  async function deleteUser(email: string) {
-    await fetch("/api/admin/users", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ email }),
-    });
-    const usersRes = await fetch("/api/admin/users");
-    setUsers(await usersRes.json());
-  }
-
-  async function addBooking(e: React.FormEvent) {
-    e.preventDefault();
-    await fetch("/api/admin/bookings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ customer: bookingCustomer, service: bookingService, date: bookingDate }),
-    });
-    setBookingCustomer("");
-    setBookingService("");
-    setBookingDate("");
-    // Refresh
-    const bookingsRes = await fetch("/api/admin/bookings");
-    setBookings(await bookingsRes.json());
-  }
-
-  async function deleteBooking(id: number) {
-    await fetch("/api/admin/bookings", {
-      method: "DELETE",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ id }),
-    });
-    const bookingsRes = await fetch("/api/admin/bookings");
-    setBookings(await bookingsRes.json());
-  }
-
-  function handleSettingsChange(e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) {
-    const { name, value, type } = e.target;
-    let fieldValue: string | boolean = value;
-    if (type === "checkbox") {
-      fieldValue = (e.target as HTMLInputElement).checked;
-    }
-    setSettingsForm(prev => ({
-      ...prev,
-      [name]: fieldValue,
-    }));
-  }
-
-  async function updateSettings(e: React.FormEvent) {
-    e.preventDefault();
-    await fetch("/api/admin/settings", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(settingsForm),
-    });
-    // Refresh
-    const res = await fetch("/api/admin/settings");
-    if (res.ok) {
-      const data = await res.json();
-      setSiteSettings(data);
-      setSettingsForm(data);
-    }
-  }
-  // ...existing code...
+  return (
+    <div className="min-h-screen flex bg-gray-900 text-white">
+      <aside className="hidden md:flex w-64 bg-gray-800 text-yellow-400 flex-col py-8 px-6 shadow-xl border-r border-yellow-400">
+        <div className="text-2xl font-extrabold mb-8 tracking-widest text-yellow-400 text-center">Carnage Admin</div>
+        <nav className="flex flex-col gap-2 text-lg font-bold">
+          {sidebarLinks.map(link => (
+            <button
+              key={link.label}
+              className={`flex items-center gap-3 px-4 py-2 rounded transition text-left ${active === link.label ? "bg-yellow-400 text-black" : "hover:bg-yellow-400 hover:text-black"}`}
+              onClick={() => setActive(link.label)}
+            >
+              <span>{link.icon}</span> {link.label}
+            </button>
+          ))}
+        </nav>
+      </aside>
+      <main className="flex-1 bg-gray-100 p-6">
+  {active === "Files" && <FilesSection isAdmin={true} />}
+  {active === "Knowledge Base" && <KnowledgeBaseSection />}
+  {active === "DTC Codes" && <DTCSearchSection />}
+      </main>
+    </div>
+  );
+// End of component
   return (
     <main className="min-h-screen flex bg-gray-100">
       {/* Sidebar */}

@@ -202,15 +202,11 @@ export default function AdminPage() {
                     <td><input value={editVehicle.make} onChange={e => setEditVehicle(ev => ({ ...ev, make: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Make" title="Make" /></td>
                     <td><input value={editVehicle.model} onChange={e => setEditVehicle(ev => ({ ...ev, model: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Model" title="Model" /></td>
                     <td><input value={editVehicle.engine} onChange={e => setEditVehicle(ev => ({ ...ev, engine: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Engine" title="Engine" /></td>
-                    <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="BHP" title="Stock BHP" /></td>
-                    <td><input value={editVehicle.stockNm} onChange={e => setEditVehicle(ev => ({ ...ev, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Nm" title="Stock Nm" /></td>
+                    <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stock BHP" title="Stock BHP" /></td>
+                    <td><input value={editVehicle.stockNm} onChange={e => setEditVehicle(ev => ({ ...ev, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stock Nm" title="Stock Nm" /></td>
                     <td><input value={editVehicle.stage1} onChange={e => setEditVehicle(ev => ({ ...ev, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 1" title="Stage 1" /></td>
                     <td><input value={editVehicle.stage2} onChange={e => setEditVehicle(ev => ({ ...ev, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 2" title="Stage 2" /></td>
-                    <td><input value={editVehicle.stage3} onChange={e => setEditVehicle(ev => ({ ...ev, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 3" title="Stage 3" /></td>      <td><input value={editVehicle.stockBhp} onChange={e => setEditVehicle(ev => ({ ...ev, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
-                    <td><input value={editVehicle.stockNm} onChange={e => setEditVehicle(ev => ({ ...ev, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
-                    <td><input value={editVehicle.stage1} onChange={e => setEditVehicle(ev => ({ ...ev, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
-                    <td><input value={editVehicle.stage2} onChange={e => setEditVehicle(ev => ({ ...ev, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
-                    <td><input value={editVehicle.stage3} onChange={e => setEditVehicle(ev => ({ ...ev, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" /></td>
+                    <td><input value={editVehicle.stage3} onChange={e => setEditVehicle(ev => ({ ...ev, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 3" title="Stage 3" /></td>
                     <td>
                       <button className="bg-yellow-400 text-white rounded px-2 py-1 mr-2" onClick={() => { onUpdate(idx, editVehicle); setEditing(null); }}>Save</button>
                       <button className="bg-gray-300 rounded px-2 py-1" type="button" onClick={() => setEditing(null)}>Cancel</button>
@@ -235,14 +231,14 @@ export default function AdminPage() {
               </tr>
             ))}
             <tr>
-              <td><input value={newVehicle.make} onChange={e => setNewVehicle(v => ({ ...v, make: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Make" /></td>
-              <td><input value={newVehicle.model} onChange={e => setNewVehicle(v => ({ ...v, model: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Model" /></td>
-              <td><input value={newVehicle.engine} onChange={e => setNewVehicle(v => ({ ...v, engine: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Engine" /></td>
-              <td><input value={newVehicle.stockBhp} onChange={e => setNewVehicle(v => ({ ...v, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="BHP" /></td>
-              <td><input value={newVehicle.stockNm} onChange={e => setNewVehicle(v => ({ ...v, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Nm" /></td>
-              <td><input value={newVehicle.stage1} onChange={e => setNewVehicle(v => ({ ...v, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 1" /></td>
-              <td><input value={newVehicle.stage2} onChange={e => setNewVehicle(v => ({ ...v, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 2" /></td>
-              <td><input value={newVehicle.stage3} onChange={e => setNewVehicle(v => ({ ...v, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 3" /></td>
+              <td><input value={newVehicle.make} onChange={e => setNewVehicle(v => ({ ...v, make: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Make" title="Make" /></td>
+              <td><input value={newVehicle.model} onChange={e => setNewVehicle(v => ({ ...v, model: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Model" title="Model" /></td>
+              <td><input value={newVehicle.engine} onChange={e => setNewVehicle(v => ({ ...v, engine: e.target.value }))} className="border rounded px-2 py-1 w-24" placeholder="Engine" title="Engine" /></td>
+              <td><input value={newVehicle.stockBhp} onChange={e => setNewVehicle(v => ({ ...v, stockBhp: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stock BHP" title="Stock BHP" /></td>
+              <td><input value={newVehicle.stockNm} onChange={e => setNewVehicle(v => ({ ...v, stockNm: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stock Nm" title="Stock Nm" /></td>
+              <td><input value={newVehicle.stage1} onChange={e => setNewVehicle(v => ({ ...v, stage1: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 1" title="Stage 1" /></td>
+              <td><input value={newVehicle.stage2} onChange={e => setNewVehicle(v => ({ ...v, stage2: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 2" title="Stage 2" /></td>
+              <td><input value={newVehicle.stage3} onChange={e => setNewVehicle(v => ({ ...v, stage3: e.target.value }))} className="border rounded px-2 py-1 w-16" placeholder="Stage 3" title="Stage 3" /></td>
               <td>
                 <button className="bg-green-500 text-white rounded px-2 py-1" onClick={() => { onAdd(newVehicle); setNewVehicle({ make: '', model: '', engine: '', stockBhp: '', stockNm: '', stage1: '', stage2: '', stage3: '' }); }}>Add</button>
               </td>
@@ -345,14 +341,15 @@ export default function AdminPage() {
         <div className="mt-auto pt-8 text-xs text-yellow-300 text-center opacity-70">&copy; {new Date().getFullYear()} Carnage Remaps</div>
       </aside>
 
-      {/* Dropdown for mobile */}
-      <div className="md:hidden w-full bg-black text-yellow-400 p-4 flex flex-col gap-2">
+      {/* Mobile Nav (sticky top) */}
+      <div className="md:hidden w-full bg-black text-yellow-400 p-4 flex flex-col gap-2 sticky top-0 z-50 shadow-lg">
         <label htmlFor="admin-nav" className="font-bold mb-1">Menu</label>
         <select
           id="admin-nav"
           className="bg-yellow-400 text-black rounded px-3 py-2 font-bold"
           value={active}
           onChange={e => setActive(e.target.value)}
+          aria-label="Admin Navigation"
         >
           {sidebarLinks.map(link => (
             <option key={link.label} value={link.label}>{link.icon} {link.label}</option>

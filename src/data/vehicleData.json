@@ -1,0 +1,54 @@
+[
+  {
+    "id": "1",
+    "make": "Volkswagen",
+    "model": "Golf GTI",
+    "engine": "2.0 TSI",
+    "stockBhp": 245,
+    "stockNm": 370,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 300, "nm": 430 },
+      { "stage": "Stage 2", "bhp": 340, "nm": 480 },
+      { "stage": "Stage 3", "bhp": 380, "nm": 520 }
+    ]
+  },
+  {
+    "id": "2",
+    "make": "BMW",
+    "model": "M140i",
+    "engine": "3.0 B58",
+    "stockBhp": 340,
+    "stockNm": 500,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 400, "nm": 600 },
+      { "stage": "Stage 2", "bhp": 450, "nm": 650 },
+      { "stage": "Stage 3", "bhp": 500, "nm": 700 }
+    ]
+  },
+  {
+    "id": "3",
+    "make": "Audi",
+    "model": "A3 Sedan",
+    "engine": "2.0 TFSI",
+    "stockBhp": 190,
+    "stockNm": 320,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 250, "nm": 400 },
+      { "stage": "Stage 2", "bhp": 280, "nm": 450 },
+      { "stage": "Stage 3", "bhp": 310, "nm": 500 }
+    ]
+  },
+  {
+    "id": "4",
+    "make": "Mercedes-Benz",
+    "model": "C-Class",
+    "engine": "C300",
+    "stockBhp": 255,
+    "stockNm": 370,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 310, "nm": 450 },
+      { "stage": "Stage 2", "bhp": 340, "nm": 500 },
+      { "stage": "Stage 3", "bhp": 370, "nm": 550 }
+    ]
+  }
+]

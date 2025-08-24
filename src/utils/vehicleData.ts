@@ -1,6 +1,10 @@
 // src/utils/vehicleData.ts
 // Vehicle data utility for admin-editable vehicle lookup
 
+import fs from "fs";
+import path from "path";
+
+
 export type Vehicle = {
   id: string;
   make: string;
@@ -15,51 +19,44 @@ export type Vehicle = {
   }[];
 };
 
-// Demo data, should be replaced with persistent storage in production
-export let vehicleData: Vehicle[] = [
-  {
-    id: "1",
-    make: "Volkswagen",
-    model: "Golf GTI",
-    engine: "2.0 TSI",
-    stockBhp: 245,
-    stockNm: 370,
-    stages: [
-      { stage: "Stage 1", bhp: 300, nm: 430 },
-      { stage: "Stage 2", bhp: 340, nm: 480 },
-      { stage: "Stage 3", bhp: 380, nm: 520 },
-    ],
-  },
-  {
-    id: "2",
-    make: "BMW",
-    model: "M140i",
-    engine: "3.0 B58",
-    stockBhp: 340,
-    stockNm: 500,
-    stages: [
-      { stage: "Stage 1", bhp: 400, nm: 600 },
-      { stage: "Stage 2", bhp: 450, nm: 650 },
-      { stage: "Stage 3", bhp: 500, nm: 700 },
-    ],
-  },
-];
+const dataFile = path.join(process.cwd(), "src", "data", "vehicleData.json");
 
-export function getVehicles() {
-  return vehicleData;
+function readData(): Vehicle[] {
+  try {
+    const raw = fs.readFileSync(dataFile, "utf-8");
+    return JSON.parse(raw);
+  } catch {
+    return [];
+  }
+}
+
+function writeData(data: Vehicle[]) {
+  fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), "utf-8");
+}
+
+// Demo data, should be replaced with persistent storage in production
+
+export function getVehicles(): Vehicle[] {
+  return readData();
 }
 
 export function addVehicle(vehicle: Vehicle) {
-  vehicleData.push(vehicle);
+  const data = readData();
+  data.push(vehicle);
+  writeData(data);
 }
 
 export function updateVehicle(id: string, update: Partial<Vehicle>) {
-  const idx = vehicleData.findIndex(v => v.id === id);
+  const data = readData();
+  const idx = data.findIndex(v => v.id === id);
   if (idx !== -1) {
-    vehicleData[idx] = { ...vehicleData[idx], ...update };
+    data[idx] = { ...data[idx], ...update };
+    writeData(data);
   }
 }
 
 export function deleteVehicle(id: string) {
-  vehicleData = vehicleData.filter(v => v.id !== id);
+  const data = readData();
+  const filtered = data.filter(v => v.id !== id);
+  writeData(filtered);
 }

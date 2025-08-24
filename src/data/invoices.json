@@ -1,0 +1,14 @@
+[
+  {
+    "id": 1,
+    "date": "2025-08-01",
+    "amount": 120,
+    "status": "Paid"
+  },
+  {
+    "id": 2,
+    "date": "2025-08-15",
+    "amount": 80,
+    "status": "Unpaid"
+  }
+]
