@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "prebuild": "node -e \"try{require('fs').rmSync('.next/types/app',{force:true,recursive:true})}catch(e){}\"",
+    "prebuild": "node -e \"['.next/types','.next/static/chunks','.next/static','.next'].forEach(p=>{try{require('fs').rmSync(p,{force:true,recursive:true})}catch(e){}})\"",
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
