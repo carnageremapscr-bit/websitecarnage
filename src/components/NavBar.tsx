@@ -2,12 +2,12 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { FaBars, FaTimes } from "react-icons/fa";
 
 export default function NavBar() {
   const router = useRouter();
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isDropdownOpen, setIsDropdownOpen] = useState(false);
 
   useEffect(() => {
     if (typeof window !== "undefined") {
@@ -27,8 +27,8 @@ export default function NavBar() {
     router.replace("/login");
   }
 
-  function toggleMenu() {
-    setIsMenuOpen(!isMenuOpen);
+  function toggleDropdown() {
+    setIsDropdownOpen(!isDropdownOpen);
   }
 
   return (
@@ -39,14 +39,14 @@ export default function NavBar() {
         </div>
         <button
           className="md:hidden text-yellow-400 text-2xl"
-          onClick={toggleMenu}
-          aria-label="Toggle navigation menu"
+          onClick={toggleDropdown}
+          aria-label="Toggle dropdown menu"
         >
-          {isMenuOpen ? <FaTimes /> : <FaBars />}
+          {isDropdownOpen ? "Collapse Menu" : "Expand Menu"}
         </button>
         <div
           className={`${
-            isMenuOpen ? "block" : "hidden"
+            isDropdownOpen ? "block" : "hidden"
           } md:flex flex-col md:flex-row gap-8 text-lg font-bold items-center absolute md:static top-16 left-0 w-full md:w-auto bg-black/95 md:bg-transparent p-4 md:p-0 z-30`}
         >
           <Link href="/" className="hover:text-yellow-300 transition">
