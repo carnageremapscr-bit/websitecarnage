@@ -21,13 +21,13 @@ export async function GET() {
   return NextResponse.json(readData());
 }
 
-export async function POST(req) {
+export async function POST(req: NextRequest) {
   const data = readData();
   const newArticle = await req.json();
   newArticle.id = data.length ? Math.max(...data.map(i => i.id)) + 1 : 1;
   data.push(newArticle);
   writeData(data);
-  return NextResponse.json({ ok: true });
+  return NextResponse.json({ ok: true, article: newArticle });
 }
 
 export async function DELETE(req) {
