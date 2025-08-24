@@ -4,20 +4,28 @@ import path from "path";
 
 const dataFile = path.join(process.cwd(), "src", "data", "users.json");
 
-function readData() {
+type User = {
+  email: string;
+  credit: number;
+  role: "admin" | "customer";
+};
+
+function readData(): User[] {
   try {
     const raw = fs.readFileSync(dataFile, "utf-8");
-    return JSON.parse(raw);
+    return JSON.parse(raw) as User[];
   } catch {
     return [];
   }
 }
 
-function writeData(data) {
+function writeData(data: any) {
   fs.writeFileSync(dataFile, JSON.stringify(data, null, 2), "utf-8");
 }
 
-export async function GET(req) {
+import { NextRequest } from "next/server";
+
+    const user = data.find((u: User) => u.email === email);
   const { searchParams } = new URL(req.url);
   const email = searchParams.get("email");
   console.log("[api/admin/users] GET - email=", email);

@@ -24,7 +24,9 @@ export async function GET() {
   return NextResponse.json(readData());
 }
 
-export async function POST(req) {
+import { NextRequest } from "next/server";
+
+export async function POST(req: NextRequest) {
   const formData = await req.formData();
   const file = formData.get("file");
   if (!file || typeof file === "string") return NextResponse.json({ error: "No file uploaded" }, { status: 400 });
@@ -38,10 +40,10 @@ export async function POST(req) {
   return NextResponse.json({ ok: true });
 }
 
-export async function DELETE(req) {
+export async function DELETE(req: NextRequest) {
   const { filename } = await req.json();
   let data = readData();
-  data = data.filter(a => a.filename !== filename);
+  data = data.filter((a: { filename: string; originalName: string; uploaded: string }) => a.filename !== filename);
   writeData(data);
   const filepath = path.join(uploadDir, filename);
   if (fs.existsSync(filepath)) fs.unlinkSync(filepath);
