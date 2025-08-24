@@ -1,6 +1,4 @@
-
-
-  "use client";
+"use client";
   import React, { useState } from "react";
   import dynamic from "next/dynamic";
   import { apiFetch } from "@/utils/apiFetch";
@@ -19,8 +17,6 @@
 
 
 
-type User = { email: string; role: string; credit?: number };
-type FileRow = { filename?: string; customer?: string; reviewed?: boolean; vehicle?: string; reg?: string; status?: string };
 type Booking = { id: number; customer: string; service: string; date: string; status: string };
 type Settings = { businessName: string; businessEmail: string; businessPhone: string; businessAddress: string; businessLogo: string; businessHours: string; maintenanceMode: boolean; homepageAnnouncement: string };
 

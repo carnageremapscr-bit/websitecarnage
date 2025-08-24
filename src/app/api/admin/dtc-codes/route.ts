@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 import fs from "fs";
 import path from "path";
-import { data } from "react-router-dom";
 
 const dataFile = path.join(process.cwd(), "src", "data", "dtc-codes.json");
 
