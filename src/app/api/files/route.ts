@@ -16,8 +16,8 @@ export async function GET() {
   } catch {}
 
   // Merge by filename, prefer queue status if available
-  const files = uploads.map(upload => {
-    const queueItem = queue.find(q => q.filename === upload.filename);
+  const files = uploads.map((upload: { filename: string; uploaded: string; model?: string; vehicleType?: string; registration?: string }) => {
+    const queueItem = queue.find((q: { filename: string; status: string; uploaded: string; id: string }) => q.filename === upload.filename);
     return {
       ...upload,
       status: queueItem ? queueItem.status : "Pending",
