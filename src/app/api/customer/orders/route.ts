@@ -1,4 +1,3 @@
-
 import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
@@ -65,7 +64,7 @@ export async function GET(request: NextRequest) {
     });
 
     // Sort by upload date (most recent first)
-    orders.sort((a, b) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime());
+    orders.sort((a: { uploadDate: string }, b: { uploadDate: string }) => new Date(b.uploadDate).getTime() - new Date(a.uploadDate).getTime());
 
     return NextResponse.json(orders);
 

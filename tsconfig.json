@@ -24,7 +24,8 @@
     },
     "types": ["jest", "@testing-library/react", "@testing-library/user-event"],
     "declaration": true,
-    "outDir": "dist"
+    "outDir": "dist",
+    "typeRoots": ["./node_modules/@types", "./src/types"]
   },
   "include": [
     "next-env.d.ts",
