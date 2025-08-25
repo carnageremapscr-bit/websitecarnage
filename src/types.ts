@@ -31,6 +31,15 @@ export interface UploadFile {
   engine?: string;
   transmission?: string;
   toolUsed?: string;
+  tuningStage?: string;
+  dynographs?: Dynograph[];
+  uploadHistory?: { fileName: string; uploadedBy: string; time: string }[];
+}
+
+export interface Dynograph {
+  name: string;
+  thumbnailUrl: string;
+  [key: string]: any;
 }
 
 export interface Article {

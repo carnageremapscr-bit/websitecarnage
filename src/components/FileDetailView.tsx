@@ -191,7 +191,7 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
           <div><span className="font-bold">Build Year:</span> {file.buildYear || "-"}</div>
           <div><span className="font-bold">Engine:</span> {file.engine || "-"}</div>
           <div><span className="font-bold">Transmission:</span> {file.transmission || "-"}</div>
-          <div><span className="font-bold">Stage:</span> <span className="px-2 py-1 bg-yellow-600 text-black rounded">{file.tuningStage || "N/A"}</span></div>
+          <div><span className="font-bold">Stage:</span> <span className="px-2 py-1 bg-yellow-600 text-black rounded">{file.tuningStage ? String(file.tuningStage) : "N/A"}</span></div>
           <div><span className="font-bold">Status:</span> <span className="px-2 py-1 bg-green-600 rounded">{file.status || "-"}</span></div>
         </div>
 
@@ -199,10 +199,10 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
         <FileActions file={file} originalFileUrl={originalFileUrl} onFileUpload={handleFileUpload} uploading={uploading} />
 
         {/* Dynograph Previews */}
-        {file.dynographs && <DynographPreview dynographs={file.dynographs} />}
+  {file.dynographs && <DynographPreview dynographs={file.dynographs} />}
 
         {/* Upload History */}
-        {file.uploadHistory && <UploadHistory history={file.uploadHistory} />}
+  {file.uploadHistory && <UploadHistory history={file.uploadHistory} />}
 
         {/* Chat */}
         <div className="mb-6">
