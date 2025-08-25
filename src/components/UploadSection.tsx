@@ -48,8 +48,9 @@ const UploadSection: React.FC = () => {
     if (!file) return;
     const formData = new FormData();
     formData.append("file", file);
+    // Ensure correct type is passed to FormData
     Object.entries(vehicleDetails).forEach(([key, value]) => {
-      formData.append(key, value);
+      formData.append(key, typeof value === 'boolean' ? String(value) : value);
     });
     formData.append("customer", vehicleDetails.registration || vehicleDetails.manufacturer || "unknown");
     try {

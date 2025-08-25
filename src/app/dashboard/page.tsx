@@ -78,18 +78,18 @@ function Dashboard() {
           {sidebarLinks.map(link => {
             const Icon = link.icon;
             return (
-              <button
+              <div
                 key={link.label}
-                className={`flex items-center gap-4 px-4 py-3 rounded-xl transition-all duration-300 text-left group ${
+                className={`flex items-center gap-4 p-2 rounded-lg cursor-pointer transition-all duration-300 text-left group ${
                   active === link.label 
                     ? "bg-black text-yellow-400 shadow-lg transform scale-105" 
                     : "hover:bg-black/10 hover:shadow-md hover:transform hover:scale-102"
                 }`}
                 onClick={() => setActive(link.label)}
               >
-                <Icon className={`text-xl ${active === link.label ? 'text-yellow-400' : 'text-black'} group-hover:text-yellow-600`} />
+                <Icon className={`text-2xl ${active === link.label ? 'text-yellow-400' : 'text-black'} group-hover:text-yellow-600`} />
                 <span className={active === link.label ? 'text-yellow-400' : 'text-black'}>{link.label}</span>
-              </button>
+              </div>
             );
           })}
         </nav>
