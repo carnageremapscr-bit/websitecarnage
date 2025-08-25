@@ -1,15 +1,17 @@
 "use client";
 import React, { useState } from "react";
 
+import { User } from "../types";
+
 interface UserEditModalProps {
-  user: { email: string; role: string; credit?: number };
+  user: User;
   onClose: () => void;
-  onSave: (updated: { email: string; role: string; credit?: number }) => Promise<void> | void;
+  onSave: (updated: User) => Promise<void> | void;
 }
 
 const UserEditModal: React.FC<UserEditModalProps> = ({ user, onClose, onSave }) => {
   const [role, setRole] = useState<string>(user.role);
-  const [credit, setCredit] = useState<number>(user.credit ?? 0);
+  const [credit, setCredit] = useState<number>(user.credit);
   const [saving, setSaving] = useState(false);
   const [error, setError] = useState("");
 
@@ -18,7 +20,7 @@ const UserEditModal: React.FC<UserEditModalProps> = ({ user, onClose, onSave }) 
     setSaving(true);
     setError("");
     try {
-      await onSave({ ...user, role, credit });
+  await onSave({ ...user, role, credit });
       onClose();
     } catch (err) {
       console.error(err); // Log the error for debugging purposes

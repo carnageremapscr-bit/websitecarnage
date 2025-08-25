@@ -8,7 +8,7 @@ export interface Invoice {
 export interface User {
   email: string;
   role: string;
-  credit?: number;
+  credit: number;
 }
 
 export interface UploadFile {
