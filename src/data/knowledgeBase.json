@@ -3,12 +3,91 @@
     "id": 1,
     "title": "How to upload a file",
     "summary": "Step-by-step guide for uploading files to the portal.",
-    "content": "1. Go to the Upload section. 2. Select your file. 3. Enter your email. 4. Click Upload."
+    "content": "1. Go to the Upload section. 2. Select your file. 3. Enter your email. 4. Click Upload. 5. Wait for confirmation that your file has been received."
   },
   {
     "id": 2,
     "title": "What is a remap?",
     "summary": "Explanation of remapping and its benefits.",
-    "content": "Remapping is the process of modifying a vehicle's ECU software to improve performance, efficiency, or both."
+    "content": "Remapping is the process of modifying a vehicle's ECU software to improve performance, efficiency, or both. It allows for adjustments in power, torque, throttle response, fuel efficiency, and more."
+  },
+  {
+    "id": 3,
+    "title": "What file types are supported?",
+    "summary": "Details on compatible file formats for uploads.",
+    "content": "Our portal supports BIN, OLS, and ECU read files from most tuning tools. Make sure your file is a clean read and not previously modified, as this ensures accuracy in processing."
+  },
+  {
+    "id": 4,
+    "title": "How do I pay for a file?",
+    "summary": "Information on payment methods and processing.",
+    "content": "Once you upload a file, you will be directed to payment options. We support Stripe payments via credit/debit card, Apple Pay, and Google Pay. Payments must be completed before your tuned file is released."
+  },
+  {
+    "id": 5,
+    "title": "What are Stage 1, 2, and 3 remaps?",
+    "summary": "Explanation of tuning stages and what they involve.",
+    "content": "Stage 1: Safe performance boost for stock cars. Stage 2: Optimised tuning for cars with supporting hardware upgrades (e.g., exhaust, intercooler). Stage 3: High-performance tuning for heavily modified vehicles, often requiring upgraded turbos and fueling systems."
+  },
+  {
+    "id": 6,
+    "title": "Can I get a dynograph with my file?",
+    "summary": "Information on digital dyno graphs.",
+    "content": "Yes, we offer digital dynographs that show stock vs tuned performance. This is available as an optional add-on during checkout for £45. The dynograph includes estimated horsepower, torque, and 0–60 mph times."
+  },
+  {
+    "id": 7,
+    "title": "How long does it take to receive my tuned file?",
+    "summary": "Turnaround time for tuning services.",
+    "content": "Most files are processed and returned within 30–60 minutes during business hours. Complex requests or out-of-hours uploads may take longer. You’ll receive an email notification once your file is ready."
+  },
+  {
+    "id": 8,
+    "title": "Is remapping safe for my car?",
+    "summary": "Information on safety and reliability.",
+    "content": "Yes, if done correctly. Our remaps stay within safe operating limits for your vehicle. Stage 1 files are designed for daily driving reliability. Higher stages may require supporting hardware and proper maintenance."
+  },
+  {
+    "id": 9,
+    "title": "Do you support gearbox maps?",
+    "summary": "Transmission tuning compatibility.",
+    "content": "Yes, we support gearbox/TCU tuning for many automatic and DSG transmissions. This improves shift times, removes torque limits, and enhances drivability when paired with ECU tuning."
+  },
+  {
+    "id": 10,
+    "title": "What happens if my file upload fails?",
+    "summary": "Troubleshooting failed uploads.",
+    "content": "If your upload fails, try again with a stable internet connection. Ensure your file is in the correct format and under the maximum size limit (20MB). If issues persist, contact support at carnageremaps@gmail.com."
+  },
+  {
+    "id": 11,
+    "title": "How do I contact support?",
+    "summary": "Ways to get in touch with our team.",
+    "content": "You can contact us via WhatsApp at +447546371963, by email at carnageremaps@gmail.com, or through the contact form on our website. We aim to reply within 24 hours."
+  },
+  {
+    "id": 12,
+    "title": "What is the Carnage Files portal?",
+    "summary": "Overview of the file portal service.",
+    "content": "Carnage Files is a secure online platform for ECU and gearbox tuning file uploads. It allows tuners and clients to upload stock files, pay securely, and receive tuned files quickly and reliably."
+  },
+  {
+    "id": 13,
+    "title": "Can I download my previous files?",
+    "summary": "Accessing your tuning history.",
+    "content": "Yes, logged-in users can access their file history and download previous tuned files from their dashboard. Files are stored securely and linked to your account."
+  },
+  {
+    "id": 14,
+    "title": "What vehicles are supported?",
+    "summary": "Coverage of makes and models.",
+    "content": "We support over 5,000 UK vehicles, including petrol, diesel, hybrid, and electric models. Coverage includes most European brands (VW, Audi, BMW, Mercedes, Ford, etc.) with expanding support for newer ECUs."
+  },
+  {
+    "id": 15,
+    "title": "What if my car has been tuned before?",
+    "summary": "Handling previously tuned ECUs.",
+    "content": "If your ECU has already been tuned, we recommend flashing it back to stock before uploading the file. This ensures a clean base for accurate and stable tuning."
   }
 ]
+

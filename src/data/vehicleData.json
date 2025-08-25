@@ -50,5 +50,541 @@
       { "stage": "Stage 2", "bhp": 340, "nm": 500 },
       { "stage": "Stage 3", "bhp": 370, "nm": 550 }
     ]
+  },
+  {
+    "id": "5",
+    "make": "Ford",
+    "model": "Focus ST",
+    "engine": "2.3 EcoBoost",
+    "stockBhp": 280,
+    "stockNm": 420,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 330, "nm": 490 },
+      { "stage": "Stage 2", "bhp": 360, "nm": 540 },
+      { "stage": "Stage 3", "bhp": 400, "nm": 600 }
+    ]
+  },
+  {
+    "id": "6",
+    "make": "Volkswagen",
+    "model": "Golf R",
+    "engine": "2.0 TSI 4Motion",
+    "stockBhp": 300,
+    "stockNm": 400,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 360, "nm": 480 },
+      { "stage": "Stage 2", "bhp": 400, "nm": 520 },
+      { "stage": "Stage 3", "bhp": 450, "nm": 580 }
+    ]
+  },
+  {
+    "id": "7",
+    "make": "Audi",
+    "model": "RS3",
+    "engine": "2.5 TFSI",
+    "stockBhp": 400,
+    "stockNm": 480,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 460, "nm": 570 },
+      { "stage": "Stage 2", "bhp": 500, "nm": 620 },
+      { "stage": "Stage 3", "bhp": 600, "nm": 700 }
+    ]
+  },
+  {
+    "id": "8",
+    "make": "Mercedes-AMG",
+    "model": "A45 S",
+    "engine": "2.0 Turbo",
+    "stockBhp": 421,
+    "stockNm": 500,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 470, "nm": 560 },
+      { "stage": "Stage 2", "bhp": 510, "nm": 600 },
+      { "stage": "Stage 3", "bhp": 560, "nm": 650 }
+    ]
+  },
+  {
+    "id": "9",
+    "make": "BMW",
+    "model": "M3 Competition",
+    "engine": "3.0 S58",
+    "stockBhp": 510,
+    "stockNm": 650,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 580, "nm": 750 },
+      { "stage": "Stage 2", "bhp": 620, "nm": 800 },
+      { "stage": "Stage 3", "bhp": 700, "nm": 900 }
+    ]
+  },
+  {
+    "id": "10",
+    "make": "Porsche",
+    "model": "911 Carrera S (992)",
+    "engine": "3.0 Twin Turbo",
+    "stockBhp": 450,
+    "stockNm": 530,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 510, "nm": 620 },
+      { "stage": "Stage 2", "bhp": 560, "nm": 680 },
+      { "stage": "Stage 3", "bhp": 620, "nm": 750 }
+    ]
+  },
+  {
+    "id": "11",
+    "make": "Seat",
+    "model": "Leon Cupra",
+    "engine": "2.0 TSI",
+    "stockBhp": 290,
+    "stockNm": 380,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 350, "nm": 460 },
+      { "stage": "Stage 2", "bhp": 390, "nm": 500 },
+      { "stage": "Stage 3", "bhp": 430, "nm": 560 }
+    ]
+  },
+  {
+    "id": "12",
+    "make": "Toyota",
+    "model": "GR Yaris",
+    "engine": "1.6 Turbo",
+    "stockBhp": 261,
+    "stockNm": 360,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 310, "nm": 420 },
+      { "stage": "Stage 2", "bhp": 340, "nm": 460 },
+      { "stage": "Stage 3", "bhp": 380, "nm": 500 }
+    ]
+  }
+]
+[
+  {
+    "id": "17",
+    "make": "Lamborghini",
+    "model": "Huracán Evo",
+    "engine": "5.2 V10",
+    "stockBhp": 640,
+    "stockNm": 600,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 680, "nm": 640 },
+      { "stage": "Stage 2", "bhp": 720, "nm": 670 },
+      { "stage": "Stage 3", "bhp": 760, "nm": 700 }
+    ]
+  },
+  {
+    "id": "18",
+    "make": "McLaren",
+    "model": "720S",
+    "engine": "4.0 Twin-Turbo V8",
+    "stockBhp": 720,
+    "stockNm": 770,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 770, "nm": 820 },
+      { "stage": "Stage 2", "bhp": 820, "nm": 880 },
+      { "stage": "Stage 3", "bhp": 880, "nm": 950 }
+    ]
+  },
+  {
+    "id": "19",
+    "make": "Chevrolet",
+    "model": "Camaro ZL1",
+    "engine": "6.2 Supercharged V8",
+    "stockBhp": 650,
+    "stockNm": 881,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 700, "nm": 940 },
+      { "stage": "Stage 2", "bhp": 750, "nm": 1000 },
+      { "stage": "Stage 3", "bhp": 800, "nm": 1080 }
+    ]
+  },
+  {
+    "id": "20",
+    "make": "Dodge",
+    "model": "Charger Hellcat",
+    "engine": "6.2 Supercharged V8",
+    "stockBhp": 717,
+    "stockNm": 881,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 770, "nm": 950 },
+      { "stage": "Stage 2", "bhp": 820, "nm": 1020 },
+      { "stage": "Stage 3", "bhp": 880, "nm": 1100 }
+    ]
+  },
+  {
+    "id": "21",
+    "make": "Tesla",
+    "model": "Model S Plaid",
+    "engine": "Tri-Motor Electric",
+    "stockBhp": 1020,
+    "stockNm": 1420,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1100, "nm": 1500 },
+      { "stage": "Stage 2", "bhp": 1180, "nm": 1600 },
+      { "stage": "Stage 3", "bhp": 1250, "nm": 1700 }
+    ]
+  },
+  {
+    "id": "22",
+    "make": "Alfa Romeo",
+    "model": "Giulia Quadrifoglio",
+    "engine": "2.9 Twin-Turbo V6",
+    "stockBhp": 510,
+    "stockNm": 600,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 560, "nm": 660 },
+      { "stage": "Stage 2", "bhp": 600, "nm": 700 },
+      { "stage": "Stage 3", "bhp": 640, "nm": 750 }
+    ]
+  },
+  {
+    "id": "23",
+    "make": "Aston Martin",
+    "model": "Vantage",
+    "engine": "4.0 Twin-Turbo V8",
+    "stockBhp": 503,
+    "stockNm": 685,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 550, "nm": 740 },
+      { "stage": "Stage 2", "bhp": 590, "nm": 780 },
+      { "stage": "Stage 3", "bhp": 630, "nm": 820 }
+    ]
+  },
+  {
+    "id": "24",
+    "make": "Maserati",
+    "model": "Levante Trofeo",
+    "engine": "3.8 Twin-Turbo V8",
+    "stockBhp": 580,
+    "stockNm": 730,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 630, "nm": 780 },
+      { "stage": "Stage 2", "bhp": 670, "nm": 830 },
+      { "stage": "Stage 3", "bhp": 710, "nm": 880 }
+    ]
+  }
+]
+[
+  {
+    "id": "25",
+    "make": "Subaru",
+    "model": "WRX STI",
+    "engine": "2.5 Turbo Boxer",
+    "stockBhp": 310,
+    "stockNm": 407,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 350, "nm": 450 },
+      { "stage": "Stage 2", "bhp": 390, "nm": 500 },
+      { "stage": "Stage 3", "bhp": 430, "nm": 550 }
+    ]
+  },
+  {
+    "id": "26",
+    "make": "Mitsubishi",
+    "model": "Lancer Evo X",
+    "engine": "2.0 Turbo",
+    "stockBhp": 291,
+    "stockNm": 366,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 340, "nm": 420 },
+      { "stage": "Stage 2", "bhp": 380, "nm": 460 },
+      { "stage": "Stage 3", "bhp": 420, "nm": 510 }
+    ]
+  },
+  {
+    "id": "27",
+    "make": "Toyota",
+    "model": "Supra GR",
+    "engine": "3.0 Turbo B58",
+    "stockBhp": 382,
+    "stockNm": 500,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 430, "nm": 560 },
+      { "stage": "Stage 2", "bhp": 470, "nm": 600 },
+      { "stage": "Stage 3", "bhp": 510, "nm": 650 }
+    ]
+  },
+  {
+    "id": "28",
+    "make": "Nissan",
+    "model": "GT-R R35",
+    "engine": "3.8 Twin-Turbo V6",
+    "stockBhp": 565,
+    "stockNm": 633,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 620, "nm": 700 },
+      { "stage": "Stage 2", "bhp": 680, "nm": 770 },
+      { "stage": "Stage 3", "bhp": 750, "nm": 850 }
+    ]
+  },
+  {
+    "id": "29",
+    "make": "Jaguar",
+    "model": "F-Type R",
+    "engine": "5.0 Supercharged V8",
+    "stockBhp": 575,
+    "stockNm": 700,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 620, "nm": 750 },
+      { "stage": "Stage 2", "bhp": 660, "nm": 800 },
+      { "stage": "Stage 3", "bhp": 700, "nm": 850 }
+    ]
+  },
+  {
+    "id": "30",
+    "make": "Porsche",
+    "model": "911 Turbo S",
+    "engine": "3.8 Twin-Turbo Flat-6",
+    "stockBhp": 650,
+    "stockNm": 800,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 700, "nm": 860 },
+      { "stage": "Stage 2", "bhp": 750, "nm": 920 },
+      { "stage": "Stage 3", "bhp": 800, "nm": 980 }
+    ]
+  },
+  {
+    "id": "31",
+    "make": "Ferrari",
+    "model": "488 GTB",
+    "engine": "3.9 Twin-Turbo V8",
+    "stockBhp": 670,
+    "stockNm": 760,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 720, "nm": 810 },
+      { "stage": "Stage 2", "bhp": 770, "nm": 870 },
+      { "stage": "Stage 3", "bhp": 820, "nm": 930 }
+    ]
+  },
+  {
+    "id": "32",
+    "make": "Pagani",
+    "model": "Huayra",
+    "engine": "6.0 Twin-Turbo V12",
+    "stockBhp": 730,
+    "stockNm": 1000,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 780, "nm": 1060 },
+      { "stage": "Stage 2", "bhp": 830, "nm": 1120 },
+      { "stage": "Stage 3", "bhp": 880, "nm": 1180 }
+    ]
+  },
+  {
+    "id": "33",
+    "make": "Koenigsegg",
+    "model": "Jesko",
+    "engine": "5.0 Twin-Turbo V8",
+    "stockBhp": 1280,
+    "stockNm": 1500,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1350, "nm": 1600 },
+      { "stage": "Stage 2", "bhp": 1450, "nm": 1700 },
+      { "stage": "Stage 3", "bhp": 1600, "nm": 1800 }
+    ]
+  },
+  {
+    "id": "34",
+    "make": "Bugatti",
+    "model": "Chiron",
+    "engine": "8.0 Quad-Turbo W16",
+    "stockBhp": 1500,
+    "stockNm": 1600,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1600, "nm": 1700 },
+      { "stage": "Stage 2", "bhp": 1700, "nm": 1800 },
+      { "stage": "Stage 3", "bhp": 1800, "nm": 1900 }
+    ]
+  },
+  {
+    "id": "35",
+    "make": "Lotus",
+    "model": "Evora GT",
+    "engine": "3.5 Supercharged V6",
+    "stockBhp": 416,
+    "stockNm": 430,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 450, "nm": 470 },
+      { "stage": "Stage 2", "bhp": 490, "nm": 510 },
+      { "stage": "Stage 3", "bhp": 530, "nm": 550 }
+    ]
+  },
+  {
+    "id": "36",
+    "make": "Peugeot",
+    "model": "308 GTi",
+    "engine": "1.6 Turbo",
+    "stockBhp": 272,
+    "stockNm": 330,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 310, "nm": 380 },
+      { "stage": "Stage 2", "bhp": 340, "nm": 420 },
+      { "stage": "Stage 3", "bhp": 370, "nm": 460 }
+    ]
+  },
+  {
+    "id": "37",
+    "make": "Renault",
+    "model": "Mégane RS Trophy",
+    "engine": "1.8 Turbo",
+    "stockBhp": 300,
+    "stockNm": 400,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 340, "nm": 440 },
+      { "stage": "Stage 2", "bhp": 370, "nm": 480 },
+      { "stage": "Stage 3", "bhp": 400, "nm": 520 }
+    ]
+  },
+  {
+    "id": "38",
+    "make": "Hyundai",
+    "model": "i30N",
+    "engine": "2.0 Turbo",
+    "stockBhp": 275,
+    "stockNm": 353,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 320, "nm": 400 },
+      { "stage": "Stage 2", "bhp": 360, "nm": 440 },
+      { "stage": "Stage 3", "bhp": 400, "nm": 480 }
+    ]
+  },
+  {
+    "id": "39",
+    "make": "Kia",
+    "model": "Stinger GT",
+    "engine": "3.3 Twin-Turbo V6",
+    "stockBhp": 365,
+    "stockNm": 510,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 410, "nm": 560 },
+      { "stage": "Stage 2", "bhp": 450, "nm": 600 },
+      { "stage": "Stage 3", "bhp": 490, "nm": 650 }
+    ]
+  },
+  {
+    "id": "40",
+    "make": "Volvo",
+    "model": "S60 Polestar",
+    "engine": "2.0 Twincharged",
+    "stockBhp": 367,
+    "stockNm": 470,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 400, "nm": 510 },
+      { "stage": "Stage 2", "bhp": 430, "nm": 550 },
+      { "stage": "Stage 3", "bhp": 460, "nm": 590 }
+    ]
+  }
+] "id": "41",
+    "make": "Lotus",
+    "model": "Evora GT",
+    "engine": "3.5 Supercharged V6",
+    "stockBhp": 416,
+    "stockNm": 430,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 450, "nm": 470 },
+      { "stage": "Stage 2", "bhp": 480, "nm": 500 },
+      { "stage": "Stage 3", "bhp": 510, "nm": 530 }
+    ]
+  },
+  {
+    "id": "42",
+    "make": "Koenigsegg",
+    "model": "Jesko",
+    "engine": "5.0 Twin-Turbo V8",
+    "stockBhp": 1280,
+    "stockNm": 1500,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1350, "nm": 1580 },
+      { "stage": "Stage 2", "bhp": 1420, "nm": 1660 },
+      { "stage": "Stage 3", "bhp": 1500, "nm": 1740 }
+    ]
+  },
+  {
+    "id": "43",
+    "make": "Pagani",
+    "model": "Huayra",
+    "engine": "6.0 Twin-Turbo V12",
+    "stockBhp": 730,
+    "stockNm": 1000,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 780, "nm": 1060 },
+      { "stage": "Stage 2", "bhp": 830, "nm": 1120 },
+      { "stage": "Stage 3", "bhp": 880, "nm": 1180 }
+    ]
+  },
+  {
+    "id": "44",
+    "make": "Bugatti",
+    "model": "Chiron",
+    "engine": "8.0 Quad-Turbo W16",
+    "stockBhp": 1500,
+    "stockNm": 1600,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1600, "nm": 1700 },
+      { "stage": "Stage 2", "bhp": 1700, "nm": 1800 },
+      { "stage": "Stage 3", "bhp": 1800, "nm": 1900 }
+    ]
+  },
+  {
+    "id": "45",
+    "make": "Porsche",
+    "model": "Taycan Turbo S",
+    "engine": "Dual-Motor Electric",
+    "stockBhp": 761,
+    "stockNm": 1050,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 800, "nm": 1100 },
+      { "stage": "Stage 2", "bhp": 840, "nm": 1150 },
+      { "stage": "Stage 3", "bhp": 880, "nm": 1200 }
+    ]
+  },
+  {
+    "id": "46",
+    "make": "Rivian",
+    "model": "R1T",
+    "engine": "Quad-Motor Electric",
+    "stockBhp": 835,
+    "stockNm": 1230,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 880, "nm": 1300 },
+      { "stage": "Stage 2", "bhp": 930, "nm": 1370 },
+      { "stage": "Stage 3", "bhp": 980, "nm": 1440 }
+    ]
+  },
+  {
+    "id": "47",
+    "make": "Lucid",
+    "model": "Air Dream Edition",
+    "engine": "Dual-Motor Electric",
+    "stockBhp": 1111,
+    "stockNm": 1390,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1180, "nm": 1460 },
+      { "stage": "Stage 2", "bhp": 1250, "nm": 1530 },
+      { "stage": "Stage 3", "bhp": 1320, "nm": 1600 }
+    ]
+  },
+  {
+    "id": "48",
+    "make": "Cadillac",
+    "model": "CT5-V Blackwing",
+    "engine": "6.2 Supercharged V8",
+    "stockBhp": 668,
+    "stockNm": 893,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 720, "nm": 950 },
+      { "stage": "Stage 2", "bhp": 770, "nm": 1000 },
+      { "stage": "Stage 3", "bhp": 820, "nm": 1060 }
+    ]
+  },
+  {
+    "id": "49",
+    "make": "GMC",
+    "model": "Hummer EV",
+    "engine": "Tri-Motor Electric",
+    "stockBhp": 1000,
+    "stockNm": 15590,
+    "stages": [
+      { "stage": "Stage 1", "bhp": 1060, "nm": 16200 },
+      { "stage": "Stage 2", "bhp": 1120, "nm": 16800 },
+      { "stage": "Stage 3", "bhp": 1180, "nm": 17400 }
+    ]
   }
 ]
