@@ -1,3 +1,10 @@
+export interface Invoice {
+  id: string | number;
+  orderId?: string | number;
+  date?: string;
+  amount?: number;
+  status?: string;
+}
 export interface User {
   email: string;
   role: string;

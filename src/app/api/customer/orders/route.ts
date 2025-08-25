@@ -1,6 +1,8 @@
+
 import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
+import type { Invoice } from '@/src/types';
 
 const DATA_DIR = join(process.cwd(), 'src', 'data');
 
@@ -23,15 +25,14 @@ export async function GET(request: NextRequest) {
     // Read invoices data for payment information
     const invoicesPath = join(DATA_DIR, 'invoices.json');
     const invoices = existsSync(invoicesPath) ? JSON.parse(readFileSync(invoicesPath, 'utf8')) : [];
-    const invoiceMap = new Map(invoices.map((invoice: any) => [invoice.orderId, invoice]));
+  const invoiceMap = new Map((invoices as Invoice[]).map((invoice) => [invoice.orderId, invoice]));
 
     // Filter uploads for the specific user
-    const userUploads = uploads.filter((upload: any) => upload.userId === userId);
+  const userUploads = uploads.filter((upload: any) => upload.userId === userId);
 
     // Transform uploads to order format
     const orders = userUploads.map((upload: any) => {
-      const invoice = invoiceMap.get(upload.id) || {};
-      
+      const invoice: Invoice = invoiceMap.get(upload.id) || {};
       // Calculate amount based on services
       let baseAmount = 150; // Base Stage 1 price
       if (upload.stage === 'Stage 2') baseAmount = 200;
