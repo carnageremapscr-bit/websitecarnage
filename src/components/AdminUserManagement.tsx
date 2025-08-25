@@ -2,7 +2,11 @@
 import React, { useEffect, useState } from "react";
 import UserEditModal from "./UserEditModal";
 
-interface User { email: string; role: string; credit?: number }
+interface User {
+  email: string;
+  role: string;
+  credit: number;
+}
 
 const AdminUserManagement: React.FC = () => {
   const [users, setUsers] = useState<User[]>([]);
@@ -16,30 +20,26 @@ const AdminUserManagement: React.FC = () => {
   const [editUser, setEditUser] = useState<User | null>(null);
 
   useEffect(() => {
-    console.log("Fetching users...");
     fetchUsers();
   }, []);
 
-  const fetchUsers = async (): Promise<void> => {
+  const fetchUsers = async () => {
     setLoading(true);
     setError("");
     try {
       const res = await fetch("/api/admin/users");
       if (!res.ok) throw new Error("Failed to load users");
-  let data: User[] = await res.json();
-  console.log("Fetched users:", data);
-  // Normalize roles for display
-  data = data.map(u => ({ ...u, role: u.role === "user" ? "customer" : u.role }));
-  setUsers(data || []);
+      const data: User[] = await res.json();
+      setUsers(data || []);
     } catch (err) {
-      console.error("Error fetching users:", err);
+      console.error(err);
       setError("Could not load users.");
     } finally {
       setLoading(false);
     }
   };
 
-  const handleAddUser = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
+  const handleAddUser = async (e: React.FormEvent) => {
     e.preventDefault();
     setSaving(true);
     setError("");
@@ -48,28 +48,25 @@ const AdminUserManagement: React.FC = () => {
       const res = await fetch("/api/admin/users", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email, role: role === "customer" ? "customer" : "admin", credit }),
+        body: JSON.stringify({ email, role, credit }),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setError(data.error || data.message || "Failed to add user.");
-        return;
-      }
-      setSuccess(data.message || "User added.");
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to add user.");
+      setSuccess("User added successfully!");
       setEmail("");
       setRole("customer");
       setCredit(0);
-      await fetchUsers();
-    } catch (err) {
+      fetchUsers();
+    } catch (err: any) {
       console.error(err);
-      setError("Could not add user. Check console for details.");
+      setError(err.message || "Could not add user.");
     } finally {
       setSaving(false);
     }
   };
 
-  const handleDeleteUser = async (userEmail: string): Promise<void> => {
-    if (!window.confirm("Delete this user?")) return;
+  const handleDeleteUser = async (userEmail: string) => {
+    if (!window.confirm(`Are you sure you want to delete ${userEmail}?`)) return;
     setSaving(true);
     setError("");
     setSuccess("");
@@ -79,26 +76,19 @@ const AdminUserManagement: React.FC = () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email: userEmail }),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setError(data.error || data.message || "Failed to delete user.");
-        return;
-      }
-      setSuccess(data.message || "User deleted.");
-      await fetchUsers();
-    } catch (err) {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to delete user.");
+      setSuccess("User deleted successfully!");
+      fetchUsers();
+    } catch (err: any) {
       console.error(err);
-      setError("Could not delete user. Check console for details.");
+      setError(err.message || "Could not delete user.");
     } finally {
       setSaving(false);
     }
   };
 
-  const handleEditUser = (user: User) => {
-    setEditUser(user);
-  };
-
-  const handleSaveEdit = async (updatedUser: User): Promise<void> => {
+  const handleSaveEdit = async (updatedUser: User) => {
     setSaving(true);
     setError("");
     setSuccess("");
@@ -106,36 +96,41 @@ const AdminUserManagement: React.FC = () => {
       const res = await fetch("/api/admin/users", {
         method: "PATCH",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ email: updatedUser.email, credit: updatedUser.credit, role: updatedUser.role }),
+        body: JSON.stringify(updatedUser),
       });
-      const data = await res.json().catch(() => ({}));
-      if (!res.ok) {
-        setError(data.error || data.message || "Failed to update user.");
-        return;
-      }
-      setSuccess(data.message || "User updated.");
-      await fetchUsers();
-    } catch (err) {
+      const data = await res.json();
+      if (!res.ok) throw new Error(data.message || "Failed to update user.");
+      setSuccess("User updated successfully!");
+      setEditUser(null);
+      fetchUsers();
+    } catch (err: any) {
       console.error(err);
-      setError("Could not update user. Check console for details.");
+      setError(err.message || "Could not update user.");
     } finally {
       setSaving(false);
     }
   };
 
   return (
-    <div className="max-w-2xl mx-auto bg-white rounded-xl shadow-lg p-8 text-black">
-  <h2 className="text-2xl font-bold mb-6 text-yellow-700">Admin User Management</h2>
-  <button onClick={fetchUsers} className="mb-4 bg-yellow-400 text-white px-3 py-1 rounded font-bold hover:bg-yellow-500">Refresh</button>
+    <div className="max-w-4xl mx-auto bg-gray-900 text-white rounded-xl shadow-lg p-8">
+      <h2 className="text-3xl font-bold mb-6 text-yellow-400">Admin User Management</h2>
+
+      <button
+        onClick={fetchUsers}
+        className="mb-4 bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded font-bold"
+      >
+        Refresh Users
+      </button>
+
       {loading ? (
-        <div className="text-yellow-400 text-center">Loading users...</div>
+        <div className="text-yellow-400 text-center mb-4">Loading users...</div>
       ) : error ? (
-        <div className="text-red-500 text-center">{error}</div>
+        <div className="text-red-500 text-center mb-4">{error}</div>
       ) : (
         <>
           <table className="w-full border-collapse border border-yellow-400 mb-6">
             <thead>
-              <tr className="bg-yellow-400 text-black">
+              <tr className="bg-yellow-500 text-black">
                 <th className="p-2 border border-yellow-400">Email</th>
                 <th className="p-2 border border-yellow-400">Role</th>
                 <th className="p-2 border border-yellow-400">Credit</th>
@@ -143,22 +138,22 @@ const AdminUserManagement: React.FC = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map((u: User) => (
-                <tr key={u.email}>
-                  <td className="p-2 border border-yellow-400">{u.email}</td>
-                  <td className="p-2 border border-yellow-400 capitalize">{u.role}</td>
-                  <td className="p-2 border border-yellow-400">{u.credit ?? 0}</td>
+              {users.map(user => (
+                <tr key={user.email} className="hover:bg-gray-800">
+                  <td className="p-2 border border-yellow-400">{user.email}</td>
+                  <td className="p-2 border border-yellow-400 capitalize">{user.role}</td>
+                  <td className="p-2 border border-yellow-400">{user.credit}</td>
                   <td className="p-2 border border-yellow-400 flex gap-2">
                     <button
-                      className="text-xs text-blue-600 hover:underline"
-                      onClick={() => handleEditUser(u)}
+                      className="text-blue-400 hover:underline text-sm"
+                      onClick={() => setEditUser(user)}
                       disabled={saving}
                     >
                       Edit
                     </button>
                     <button
-                      className="text-xs text-red-600 hover:underline"
-                      onClick={() => handleDeleteUser(u.email)}
+                      className="text-red-400 hover:underline text-sm"
+                      onClick={() => handleDeleteUser(user.email)}
                       disabled={saving}
                     >
                       Delete
@@ -168,21 +163,24 @@ const AdminUserManagement: React.FC = () => {
               ))}
             </tbody>
           </table>
-          <form className="flex flex-col md:flex-row gap-2 mt-2" onSubmit={handleAddUser}>
+
+          {/* Add New User Form */}
+          <form
+            className="flex flex-col md:flex-row gap-2 mb-4"
+            onSubmit={handleAddUser}
+          >
             <input
               type="email"
               placeholder="Email"
               value={email}
               onChange={e => setEmail(e.target.value)}
-              className="px-2 py-1 rounded border border-yellow-300 flex-1"
+              className="px-3 py-2 rounded border border-yellow-500 flex-1 text-black"
               required
             />
             <select
               value={role}
-              onChange={e => setRole((e.target as HTMLSelectElement).value)}
-              className="px-2 py-1 rounded border border-yellow-300"
-              aria-label="Role"
-              title="Role"
+              onChange={e => setRole(e.target.value)}
+              className="px-3 py-2 rounded border border-yellow-500 text-black"
             >
               <option value="customer">Customer</option>
               <option value="admin">Admin</option>
@@ -192,19 +190,21 @@ const AdminUserManagement: React.FC = () => {
               placeholder="Credit"
               value={credit}
               onChange={e => setCredit(Number(e.target.value))}
-              className="px-2 py-1 rounded border border-yellow-300 w-24"
+              className="px-3 py-2 rounded border border-yellow-500 w-24 text-black"
               min={0}
             />
             <button
               type="submit"
-              className="bg-yellow-400 text-white rounded px-3 py-1 font-bold"
+              className="bg-yellow-500 hover:bg-yellow-600 text-black px-4 py-2 rounded font-bold"
               disabled={saving}
             >
               {saving ? "Saving..." : "Add User"}
             </button>
           </form>
-          {success && <div className="text-green-600 font-semibold text-center mt-2">{success}</div>}
-          {error && <div className="text-red-600 font-semibold text-center mt-2">{error}</div>}
+
+          {success && <div className="text-green-400 font-semibold text-center mb-2">{success}</div>}
+          {error && <div className="text-red-400 font-semibold text-center mb-2">{error}</div>}
+
           {editUser && (
             <UserEditModal
               user={editUser}
