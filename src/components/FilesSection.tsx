@@ -1,11 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { UploadFile } from "../types";
-// import dynamic from "next/dynamic";
-// const FileAdminSection = dynamic(() => import("./FileAdminSection"), { ssr: false });
 import FileDetailView from "./FileDetailView";
+import DashboardLayout from "./layout/DashboardLayout";
+import { FaFile } from "react-icons/fa";
+import { SidebarLink } from "./layout/Sidebar";
 
 
-const FilesSection = ({ isAdmin = false }: { isAdmin?: boolean }) => {
+const FilesSection = ({ isAdmin = false, withLayout = false }: { isAdmin?: boolean, withLayout?: boolean }) => {
   const [files, setFiles] = useState<UploadFile[]>([]);
   const [loading, setLoading] = useState(true);
   const [selectedFile, setSelectedFile] = useState<UploadFile | null>(null);
@@ -49,7 +50,7 @@ const FilesSection = ({ isAdmin = false }: { isAdmin?: boolean }) => {
     return <FileDetailView file={selectedFile} onBack={() => setSelectedFile(null)} />;
   }
 
-  return (
+  const content = (
     <div className="p-4 bg-gray-800 text-white rounded-lg shadow-md">
       <h2 className="text-2xl font-bold mb-4">{isAdmin ? "All Uploaded Files" : "Your Uploaded Files"}</h2>
       <table className="w-full border-collapse border border-yellow-400 mb-6">
@@ -82,6 +83,27 @@ const FilesSection = ({ isAdmin = false }: { isAdmin?: boolean }) => {
       </table>
     </div>
   );
+
+  if (withLayout) {
+    const sidebarLinks: SidebarLink[] = [
+      { label: "Files", icon: FaFile, color: "text-yellow-400" },
+    ];
+    const [active, setActive] = useState("Files");
+    return (
+      <DashboardLayout
+        links={sidebarLinks}
+        active={active}
+        setActive={setActive}
+        title="CARNAGE"
+        subtitle={isAdmin ? "ADMIN FILES" : "FILES"}
+        footer={null}
+        backgroundSvg={null}
+      >
+        {content}
+      </DashboardLayout>
+    );
+  }
+  return content;
 };
 
 export default FilesSection;

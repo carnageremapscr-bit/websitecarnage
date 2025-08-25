@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { UploadFile, ChatMessage } from "../types";
 import "./FileDetailView.css";
+import DashboardLayout from "./layout/DashboardLayout";
+import { FaFile } from "react-icons/fa";
+import { SidebarLink } from "./layout/Sidebar";
 
 // Fetch chat messages for a file
 async function fetchFileChat(fileId: string | number): Promise<ChatMessage[]> {
@@ -39,8 +42,9 @@ async function sendFileChat(fileId: string | number, sender: string, text: strin
 
 
 
+
 const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void }) => {
-  // Chat and admin return not needed
+  // ...existing code...
   const [originalFileUrl, setOriginalFileUrl] = useState("");
   const [uploading, setUploading] = useState(false);
   const [chatMessages, setChatMessages] = useState<ChatMessage[]>([]);
@@ -48,10 +52,10 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
   const [chatLoading, setChatLoading] = useState(false);
   const [chatError, setChatError] = useState("");
   const [chatFile, setChatFile] = useState<File | null>(null);
-  const [now, setNow] = useState(new Date()); // Define `setNow` for updating the current time
+  const [now, setNow] = useState(new Date());
 
   useEffect(() => {
-    // Fetch chat and set download URL
+    // ...existing code...
     const load = async () => {
       setChatLoading(true);
       setChatError("");
@@ -63,26 +67,24 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
         setChatError("Failed to load chat");
       }
       setChatLoading(false);
-      // Download URL: always allow download for user/admin
       setOriginalFileUrl(`/uploads/${file.filename}`);
     };
     load();
     const interval = setInterval(() => setNow(new Date()), 1000);
-    return () => clearInterval(interval); // Cleanup interval on unmount
+    return () => clearInterval(interval);
   }, [file.id, file.filename]);
 
-  // No chat or admin return logic
-
   const handleFileUpload = async (e: React.ChangeEvent<HTMLInputElement>) => {
+    // ...existing code...
     const fileToUpload = e.target.files?.[0];
     if (!fileToUpload) return;
     setUploading(true);
-    // TODO: Implement upload logic to backend
-  setTimeout(() => setUploading(false), 1200); // Simulate upload
-  setChatMessages(msgs => ([...msgs, { sender: "You", time: new Date().toLocaleString(), text: `Re-uploaded file: ${fileToUpload.name}` }]));
+    setTimeout(() => setUploading(false), 1200);
+    setChatMessages(msgs => ([...msgs, { sender: "You", time: new Date().toLocaleString(), text: `Re-uploaded file: ${fileToUpload.name}` }]));
   };
 
   const handleChatSend = async () => {
+    // ...existing code...
     if (!chatInput.trim() && !chatFile) return;
     setChatLoading(true);
     setChatError("");
@@ -98,87 +100,101 @@ const FileDetailView = ({ file, onBack }: { file: UploadFile; onBack: () => void
     setChatLoading(false);
   };
 
-  console.log(now); // Temporary usage to avoid unused variable warning
+  // Sidebar links for file view context
+  const sidebarLinks: SidebarLink[] = [
+    { label: "Files", icon: FaFile, color: "text-yellow-400" },
+  ];
+  const [active, setActive] = useState("Files");
 
   return (
-    <div className="bg-white text-black rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative">
-      <button className="absolute top-4 left-4 px-3 py-1 rounded bg-red-600 text-white hover:opacity-80" onClick={onBack}>
-        &larr; Back to files
-      </button>
-      <div className="mb-4">
-        <span className="inline-block px-3 py-1 rounded font-bold mr-2 bg-green-600 text-white">Returned</span>
-        <span className="font-bold">File #{file.id}</span>
-      </div>
-      <div className="mb-2">
-        <span className="font-bold text-lg">{file.vehicle}</span>
-      </div>
-      <div className="mb-4 text-sm grid grid-cols-2 gap-2">
-        <div>Registration: <span className="registration-span px-2 py-1 rounded font-mono">{file.registration}</span></div>
-        <div>ECU: <span className="font-bold text-red-600">{file.ecu || file.ecuType || "-"}</span></div>
-        <div>Options: <span className="text-cyan-600 font-bold">{file.options || "-"}</span></div>
-        <div>Manufacturer: <span className="font-bold">{file.manufacturer || "-"}</span></div>
-        <div>Model: <span className="font-bold">{file.model || "-"}</span></div>
-        <div>Build Year: <span className="font-bold">{file.buildYear || "-"}</span></div>
-        <div>Engine: <span className="font-bold">{file.engine || "-"}</span></div>
-        <div>Transmission: <span className="font-bold">{file.transmission || "-"}</span></div>
-        <div>Tool Used: <span className="font-bold">{file.toolUsed || "-"}</span></div>
-        <div>Status: <span className="font-bold">{file.status || "-"}</span></div>
-        <div>Last Updated: <span className="font-bold">{file.lastUpdated || "-"}</span></div>
-      </div>
-      <div className="mb-6">
-        {originalFileUrl && (
-          <a href={originalFileUrl} download className="inline-flex items-center download-button">
-            <svg className="w-4 h-4 mr-1 downloadIcon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
-            Download file
-          </a>
-        )}
-        <div className="mt-2">
-          <label htmlFor="reupload" className="block mb-1 font-semibold">Re-upload file:</label>
-          <input id="reupload" type="file" onChange={handleFileUpload} className="block text-black" disabled={uploading} title="Reupload file" />
-          {uploading && <span className="ml-2 text-xs text-gray-600">Uploading...</span>}
+    <DashboardLayout
+      links={sidebarLinks}
+      active={active}
+      setActive={setActive}
+      title="CARNAGE"
+      subtitle="FILES"
+      footer={null}
+      backgroundSvg={null}
+    >
+      <div className="bg-white text-black rounded-lg shadow-lg p-6 max-w-2xl mx-auto relative">
+        <button className="absolute top-4 left-4 px-3 py-1 rounded bg-red-600 text-white hover:opacity-80" onClick={onBack}>
+          &larr; Back to files
+        </button>
+        {/* ...existing code for file details, download, chat, etc... */}
+        <div className="mb-4">
+          <span className="inline-block px-3 py-1 rounded font-bold mr-2 bg-green-600 text-white">Returned</span>
+          <span className="font-bold">File #{file.id}</span>
+        </div>
+        <div className="mb-2">
+          <span className="font-bold text-lg">{file.vehicle}</span>
+        </div>
+        <div className="mb-4 text-sm grid grid-cols-2 gap-2">
+          <div>Registration: <span className="registration-span px-2 py-1 rounded font-mono">{file.registration}</span></div>
+          <div>ECU: <span className="font-bold text-red-600">{file.ecu || file.ecuType || "-"}</span></div>
+          <div>Options: <span className="text-cyan-600 font-bold">{file.options || "-"}</span></div>
+          <div>Manufacturer: <span className="font-bold">{file.manufacturer || "-"}</span></div>
+          <div>Model: <span className="font-bold">{file.model || "-"}</span></div>
+          <div>Build Year: <span className="font-bold">{file.buildYear || "-"}</span></div>
+          <div>Engine: <span className="font-bold">{file.engine || "-"}</span></div>
+          <div>Transmission: <span className="font-bold">{file.transmission || "-"}</span></div>
+          <div>Tool Used: <span className="font-bold">{file.toolUsed || "-"}</span></div>
+          <div>Status: <span className="font-bold">{file.status || "-"}</span></div>
+          <div>Last Updated: <span className="font-bold">{file.lastUpdated || "-"}</span></div>
+        </div>
+        <div className="mb-6">
+          {originalFileUrl && (
+            <a href={originalFileUrl} download className="inline-flex items-center download-button">
+              <svg className="w-4 h-4 mr-1 downloadIcon" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" d="M4 16v2a2 2 0 002 2h12a2 2 0 002-2v-2M7 10l5 5 5-5M12 15V3" /></svg>
+              Download file
+            </a>
+          )}
+          <div className="mt-2">
+            <label htmlFor="reupload" className="block mb-1 font-semibold">Re-upload file:</label>
+            <input id="reupload" type="file" onChange={handleFileUpload} className="block text-black" disabled={uploading} title="Reupload file" />
+            {uploading && <span className="ml-2 text-xs text-gray-600">Uploading...</span>}
+          </div>
+        </div>
+        <div className="mb-6">
+          <div className="font-bold mb-2">Chat with Support</div>
+          <div className="bg-gray-100 rounded p-2 mb-2 max-h-40 overflow-y-auto text-black">
+            {chatLoading && <div className="text-gray-500">Loading...</div>}
+            {chatError && <div className="text-red-500">{chatError}</div>}
+            {!chatLoading && chatMessages.length === 0 && <div className="text-gray-500">No messages yet.</div>}
+            {chatMessages.map((msg, i) => (
+              <div key={i} className="mb-1 flex flex-col">
+                <span className="font-bold">{msg.sender}:</span> {msg.text} {msg.fileUrl && (
+                  <a href={msg.fileUrl} download className="text-blue-600 underline ml-2" target="_blank" rel="noopener noreferrer">Download file</a>
+                )}
+                <span className="text-xs text-gray-400">{msg.time ? new Date(msg.time).toLocaleString() : ""}</span>
+              </div>
+            ))}
+          </div>
+          <div className="flex gap-2 items-center">
+            <input
+              type="text"
+              value={chatInput}
+              onChange={e => setChatInput(e.target.value)}
+              className="flex-1 border rounded px-2 py-1 text-black"
+              placeholder="Type a message..."
+              disabled={chatLoading}
+            />
+            <input
+              type="file"
+              onChange={e => setChatFile(e.target.files?.[0] ?? null)}
+              className="border rounded px-2 py-1 text-black"
+              disabled={chatLoading}
+              title="Attach file"
+            />
+            <button
+              className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-500"
+              onClick={handleChatSend}
+              type="button"
+              disabled={chatLoading || (!chatInput.trim() && !chatFile)}
+            >Send</button>
+          </div>
         </div>
       </div>
-      <div className="mb-6">
-        <div className="font-bold mb-2">Chat with Support</div>
-        <div className="bg-gray-100 rounded p-2 mb-2 max-h-40 overflow-y-auto text-black">
-          {chatLoading && <div className="text-gray-500">Loading...</div>}
-          {chatError && <div className="text-red-500">{chatError}</div>}
-          {!chatLoading && chatMessages.length === 0 && <div className="text-gray-500">No messages yet.</div>}
-          {chatMessages.map((msg, i) => (
-            <div key={i} className="mb-1 flex flex-col">
-              <span className="font-bold">{msg.sender}:</span> {msg.text} {msg.fileUrl && (
-                <a href={msg.fileUrl} download className="text-blue-600 underline ml-2" target="_blank" rel="noopener noreferrer">Download file</a>
-              )}
-              <span className="text-xs text-gray-400">{msg.time ? new Date(msg.time).toLocaleString() : ""}</span>
-            </div>
-          ))}
-        </div>
-        <div className="flex gap-2 items-center">
-          <input
-            type="text"
-            value={chatInput}
-            onChange={e => setChatInput(e.target.value)}
-            className="flex-1 border rounded px-2 py-1 text-black"
-            placeholder="Type a message..."
-            disabled={chatLoading}
-          />
-          <input
-            type="file"
-            onChange={e => setChatFile(e.target.files?.[0] ?? null)}
-            className="border rounded px-2 py-1 text-black"
-            disabled={chatLoading}
-            title="Attach file"
-          />
-          <button
-            className="bg-yellow-400 text-black px-3 py-1 rounded hover:bg-yellow-500"
-            onClick={handleChatSend}
-            type="button"
-            disabled={chatLoading || (!chatInput.trim() && !chatFile)}
-          >Send</button>
-        </div>
-      </div>
-
-    </div>
+    </DashboardLayout>
   );
 };
 
