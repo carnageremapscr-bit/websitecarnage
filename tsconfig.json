@@ -22,7 +22,7 @@
     "paths": {
       "@/*": ["./src/*"]
     },
-    "types": ["jest", "@testing-library/react", "@testing-library/user-event"],
+    "types": ["node"],
     "declaration": true,
     "outDir": "dist",
     "typeRoots": ["./node_modules/@types", "./src/types"]
