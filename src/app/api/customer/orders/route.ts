@@ -2,7 +2,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { readFileSync, existsSync } from 'fs';
 import { join } from 'path';
-import type { Invoice } from '@/src/types';
+import type { Invoice } from '../../../types';
 
 const DATA_DIR = join(process.cwd(), 'src', 'data');
 
