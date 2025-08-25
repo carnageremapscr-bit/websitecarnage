@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 
-
 const UploadSection: React.FC = () => {
   const [file, setFile] = useState<File | null>(null);
   const [vehicleDetails, setVehicleDetails] = useState({
@@ -13,6 +12,9 @@ const UploadSection: React.FC = () => {
     ecuType: "",
     transmission: "",
     toolUsed: "",
+    stage: "Stage 1",
+    gearboxTuning: false,
+    dynograph: false,
   });
   const [uploadStatus, setUploadStatus] = useState<string | null>(null);
   const [showSummary, setShowSummary] = useState(false);

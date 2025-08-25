@@ -1,9 +1,62 @@
 @import "tailwindcss";
 
+/* Carnage Remaps Custom Variables */
+:root {
+  --carnage-primary: #facc15; /* yellow-400 */
+  --carnage-secondary: #000000; /* black */
+  --carnage-accent: #1f2937; /* gray-800 */
+  --carnage-dark: #111827; /* gray-900 */
+  --carnage-text: #ffffff;
+  --carnage-text-secondary: #9ca3af; /* gray-400 */
+}
+
 body {
-  background: #fff;
-  color: #000;
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--carnage-dark);
+  color: var(--carnage-text);
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  line-height: 1.6;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--carnage-accent);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--carnage-primary);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #fbbf24; /* yellow-500 */
+}
+
+/* Performance Pro Theme Glow Effects */
+.glow-effect {
+  box-shadow: 0 0 20px rgba(250, 204, 21, 0.5);
+}
+
+.glow-effect:hover {
+  box-shadow: 0 0 30px rgba(250, 204, 21, 0.7);
+}
+
+/* Custom animations */
+@keyframes pulse-yellow {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.7;
+  }
+}
+
+.animate-pulse-yellow {
+  animation: pulse-yellow 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
 }
 
 /* Mobile-specific styles */
