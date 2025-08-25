@@ -40,7 +40,7 @@ const ChatMessageList = ({ messages }: { messages: ChatMessage[] }) => {
         <div key={i} className={`chat-message mb-2 p-2 rounded ${msg.sender === "You" ? "bg-yellow-700 self-end" : "bg-gray-800 self-start"}`}>
           <div className="flex items-center justify-between">
             <span className="font-bold">{msg.sender}</span>
-            <span className="text-xs text-gray-400" title={msg.time}>{new Date(msg.time).toLocaleString()}</span>
+            <span className="text-xs text-gray-400" title={msg.time}>{msg.time ? new Date(typeof msg.time === 'number' || typeof msg.time === 'string' ? msg.time : Date.now()).toLocaleString() : ''}</span>
           </div>
           <div className="mt-1">{msg.text}</div>
           {msg.fileUrl && (
