@@ -95,7 +95,7 @@ const UploadSection: React.FC = () => {
       return;
     }
     setFile(selectedFile);
-    setErrors(prev => ({ ...prev, file: null }));
+  setErrors(prev => ({ ...prev, file: undefined }));
   };
 
   // Handle form input changes
