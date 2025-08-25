@@ -31,7 +31,7 @@ export async function GET(request: NextRequest) {
 
     // Transform uploads to order format
     const orders = userUploads.map((upload: any) => {
-      const invoice: Invoice = invoiceMap.get(upload.id) || {};
+      const invoice = invoiceMap.get(upload.id) as Invoice | undefined;
       // Calculate amount based on services
       let baseAmount = 150; // Base Stage 1 price
       if (upload.stage === 'Stage 2') baseAmount = 200;
@@ -57,8 +57,8 @@ export async function GET(request: NextRequest) {
         originalFile: upload.filename,
         tunedFile: upload.tunedFilename,
         dynographFile: upload.dynographFilename,
-        paymentStatus: invoice.status || 'pending',
-        amount: invoice.amount || baseAmount,
+        paymentStatus: invoice?.status ?? 'pending',
+        amount: invoice?.amount ?? baseAmount,
         description: `${upload.stage || 'Stage 1'} ECU Remap${upload.gearboxTuning ? ' + Gearbox Tuning' : ''}${upload.dynograph ? ' + Dynograph' : ''}`,
       };
     });

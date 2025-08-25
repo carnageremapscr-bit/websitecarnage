@@ -10,21 +10,23 @@ import DTCSearchSection from "../../components/DTCSearchSection";
 import OrderTrackingSection from "../../components/OrderTrackingSection";
 import { useRouter } from "next/navigation";
 import { FaHome, FaUpload, FaShoppingCart, FaBook, FaCar, FaSearch, FaFile } from "react-icons/fa";
+// Ensure Icon components accept className prop
+type IconComponent = React.ComponentType<React.SVGProps<SVGSVGElement> & { className?: string }>;
 
 interface SidebarLink {
   label: string;
-  icon: React.ComponentType;
+  icon: IconComponent;
   color?: string;
 }
 
 const sidebarLinks: SidebarLink[] = [
-  { label: "Dashboard", icon: FaHome, color: "text-yellow-400" },
-  { label: "Upload File", icon: FaUpload, color: "text-yellow-400" },
-  { label: "My Orders", icon: FaShoppingCart, color: "text-yellow-400" },
-  { label: "Files", icon: FaFile, color: "text-yellow-400" },
-  { label: "Knowledge Base", icon: FaBook, color: "text-yellow-400" },
-  { label: "Vehicle Data", icon: FaCar, color: "text-yellow-400" },
-  { label: "DTC Search", icon: FaSearch, color: "text-yellow-400" },
+  { label: "Dashboard", icon: FaHome as IconComponent, color: "text-yellow-400" },
+  { label: "Upload File", icon: FaUpload as IconComponent, color: "text-yellow-400" },
+  { label: "My Orders", icon: FaShoppingCart as IconComponent, color: "text-yellow-400" },
+  { label: "Files", icon: FaFile as IconComponent, color: "text-yellow-400" },
+  { label: "Knowledge Base", icon: FaBook as IconComponent, color: "text-yellow-400" },
+  { label: "Vehicle Data", icon: FaCar as IconComponent, color: "text-yellow-400" },
+  { label: "DTC Search", icon: FaSearch as IconComponent, color: "text-yellow-400" },
 ];
 
 function Dashboard() {
