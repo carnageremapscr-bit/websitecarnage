@@ -5,7 +5,7 @@
   "scripts": {
     "prebuild": "node -e \"['.next/types','.next/static/chunks','.next/static','.next'].forEach(p=>{try{require('fs').rmSync(p,{force:true,recursive:true})}catch(e){}})\"",
     "dev": "next dev --turbopack",
-    "build": "next build",
+    "build": "tsc && next build",
     "start": "next start",
     "lint": "eslint"
   },
